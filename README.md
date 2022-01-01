@@ -1,4 +1,4 @@
-# AP_Accessory_Common #
+# AP_DCC_Decoder_Basic #
 
 Skeleton for Accessory decoders that use the AP_DCC and RSBus libraries. It supports Configuration Variables (CVs) for different kind of decoders; these CVs can be accessed via SM and PoM. A speciality is that PoM feedback messages will not be send via RailCom, but via the RS-Bus using address 128. Dedicated MAC programs are available that use this setup to configure these CVs; these programs can be downloaded from:
 - https://github.com/aikopras/Programmer-Decoder-POM
