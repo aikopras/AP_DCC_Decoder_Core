@@ -30,7 +30,7 @@
 // 2) Sending a PoM or SM message to CV 8 (the  Vendor ID) with the value 0x0D.
 // 3) In case the EEPROM has not yet been initialised, the setup() method in main will call setDefaults().
 //
-// In the main sketch setup() should call notInitialised() to check if the EEPROM is already filled.
+// CommonDecHwFunctions() should call notInitialised() to check if the EEPROM is already filled.
 // notInitialised() reads the first EEPROM element (EEPROM.read(0)), which is for uninitialised
 // EEPROMs generally 00 or FF.
 // If the EEPROM is uninitialised, begin() writes the value 0b01010101 to the first EEPROM element
@@ -139,21 +139,20 @@ const uint8_t FB_S3        = 49;   // 0..8   - Feedback bit if Sensor 3 is activ
 const uint8_t FB_S4        = 50;   // 0..8   - Feedback bit if Sensor 4 is active
 const uint8_t Polarization = 51;   // 0..1   - If 0: J&K connected normal / if 1: J&K polarization changed
 
-// CV Names - Specific for Switch, Relays-4 and Safety Decoder 
+// CV Names - Specific for Switch and Relays-4  Decoders
 const uint8_t SendFB       = 33;   // 0..1   - Decoder will send switch feedback messages via the RS-Bus 
-
-// CV Names - Specific for a Switch and Relays-4 Decoder 
 const uint8_t AlwaysAct    = 34;   // 0..1   - If set, decoder will activate coil / relays for each DCC command received
 
 // CV Names - Specific for a Relays-16 Decoder 
-const uint8_t Ract         = 33;   // 0..1   - If relais switches with - (=0) or with + (=1)
+const uint8_t Ract         = 33;   // 0..1   - If relays switches with - (=0) or with + (=1)
 const uint8_t RRR1         = 34;   // Relays used for round-robin, relays 1-8  (Port C)
 const uint8_t RRR2         = 35;   // Relays used for round-robin, relays 9-16 (Port A)
 const uint8_t RInter       = 36;   // Relays decoder, round-robin interval (in seconds)
 const uint8_t Mode         = 37;   // 1..3   - Relais decoder mode
 
 // CV Names - Specific for a Safety Decoder 
-const uint8_t P_Emergency  = 34;  // 1/4     - Which Pin on the X8 connector is for emergency stop. Possible values: 1 .. 4 
+const uint8_t SendButtonFB = 33;  // 0..1   - Decoder sends feedback via the RS-Bus if the emergency button is pushed
+const uint8_t P_Emergency  = 34;  // 1/4    - Which Pin on the X8 connector is for emergency stop. Possible values: 1 .. 4
 const uint8_t T_Watchdog   = 35;  // Number of seconds watchdog relay will remain active
 const uint8_t T_TrainMove  = 36;  // Time after an RS-emergency button push for PC to stop all trains
 const uint8_t T_CheckMove  = 37;  // Interval in which we check if PC stopped all trains
@@ -165,6 +164,9 @@ const uint8_t T_RS_Push4   = 41;  //
 // CV Names - Specific for a Servo Decoder 
 const uint8_t LastState    = 33;   // 0..1  - Save last servo position
  
+// CV Names - Specific for a LiftDecoder
+const uint8_t StartHoming  = 33;  // 0..1   - During initialisation decoder starts with a homing cycle
+
 
 //*****************************************************************************************************
 class CvValues {

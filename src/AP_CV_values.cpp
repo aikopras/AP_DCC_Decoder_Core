@@ -216,6 +216,10 @@ void CvValues::init(uint8_t decoderType, uint8_t softwareVersion) {
       defaults[Polarization] = 0;  // If 0: J&K connected normal, if 1: J&K polarization changed
     break;
     //
+    case LiftDecoder:
+    defaults[StartHoming] = 1;     // If 1: perform a stepper motor homing cycle at program start
+    break;
+    //
     case FunctionDecoder:
     break;
   }
