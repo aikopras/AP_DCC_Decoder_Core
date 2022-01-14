@@ -52,14 +52,6 @@ class CvProgramming {
 };
 
 
-class ProgButton {
-  public:
-    void attach(uint8_t pin);                     // Attach the onboard programming button
-    void checkForNewDecoderAddress(void);         // Is the onboard programming button pushed?
-    void addressProgramming(void);                // Store the new decoder / RS-Bus address in EEPROM
-};
-
-
 class CommonDecHwFunctions {
   public:
     void init(void);                              // Should be called from init() in the main sketch.
@@ -104,5 +96,4 @@ extern CvProgramming cvProgramming;          // Instantiated in AP_Accessory_Com
 // The following objects provide access to the onboard LED, as well as the
 // onboard programming button
 extern DCC_Led onBoardLed;                   // Instantiated in AP_DCC_Decoder_Basic.cpp
-extern ProgButton progButton;                // Instantiated in AP_DCC_Decoder_Basic.cpp
 extern CommonDecHwFunctions decoderHardware; // Instantiated in AP_DCC_Decoder_Basic.cpp

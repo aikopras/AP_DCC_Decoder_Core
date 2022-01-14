@@ -13,6 +13,14 @@
 #include "boards.h"                   // For Arduino PIN definitions of common interfaces.
 
 
+class ProgButton {
+  public:
+    void attach(uint8_t pin);                     // Attach the onboard programming button
+    void checkForNewDecoderAddress(void);         // Is the onboard programming button pushed?
+    void addressProgramming(void);                // Store the new decoder / RS-Bus address in EEPROM
+};
+
+
 //*****************************************************************************************************
 // Objects instatiated in this library
 //*****************************************************************************************************
