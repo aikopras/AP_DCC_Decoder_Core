@@ -166,6 +166,8 @@ const uint8_t LastState    = 33;   // 0..1  - Save last servo position
  
 // CV Names - Specific for a LiftDecoder
 const uint8_t StartHoming  = 33;  // 0..1   - During initialisation decoder starts with a homing cycle
+const uint8_t IR_Detect    = 34;  // 0..1   - Disable / Enable the IR detectors to block lift movement
+const uint8_t LCD_Display  = 35;  // 0..1   - Disable / Enable the LCD display 
 
 
 //*****************************************************************************************************

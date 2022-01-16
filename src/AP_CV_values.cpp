@@ -71,8 +71,10 @@ void CvValues::init(uint8_t decoderType, uint8_t softwareVersion) {
   defaults[CmdStation] = 1;             // 1 = LENZ LZV100 with Xpressnet V3.6; the default value
   defaults[SkipUnEven] = 0;             // 0..1 - Only Decoder Addresses 2, 4, 6 .... 1024 will be used
   defaults[RSFEC] = 0;                  // 0..2 - Number of RS-Bus extra transmissions (Forward Error Correction)
-  defaults[RSParity] = 1;               // 0..2 - RS-Bus error: 0=no reaction, 1=only if just transmitted, 2=always
-  defaults[RSPulsCount] = 2;            // 0..2 - RS-Bus error: 0=no reaction, 1=only if just transmitted, 2=always
+//  defaults[RSParity] = 1;               // 0..2 - RS-Bus error: 0=no reaction, 1=only if just transmitted, 2=always
+//  defaults[RSPulsCount] = 2;            // 0..2 - RS-Bus error: 0=no reaction, 1=only if just transmitted, 2=always
+  defaults[RSParity] = 0;               // 0..2 - RS-Bus error: 0=no reaction, 1=only if just transmitted, 2=always
+  defaults[RSPulsCount] = 0;            // 0..2 - RS-Bus error: 0=no reaction, 1=only if just transmitted, 2=always
   defaults[DccQuality] = 0;             // Counts the number of DCC message checksum errors since last restart
   defaults[ParityErrors] = 0;           // Counts the number of RS-Bus parity errors since last restart
   defaults[PulseErrors] = 0;            // Counts the number of RS-Bus pulse count errors since last restart
@@ -209,15 +211,17 @@ void CvValues::init(uint8_t decoderType, uint8_t softwareVersion) {
       defaults[FB_B] = 1;
       defaults[FB_C] = 2;
       defaults[FB_D] = 3;
-      defaults[FB_S1] = 0;         // 1..8: Feedback bit if Sensor 1 is active
+      defaults[FB_S1] = 0;        // 1..8: Feedback bit if Sensor 1 is active
       defaults[FB_S2] = 1;
       defaults[FB_S3] = 1;
       defaults[FB_S4] = 2;
-      defaults[Polarization] = 0;  // If 0: J&K connected normal, if 1: J&K polarization changed
+      defaults[Polarization] = 0; // If 0: J&K connected normal, if 1: J&K polarization changed
     break;
     //
     case LiftDecoder:
-    defaults[StartHoming] = 1;     // If 1: perform a stepper motor homing cycle at program start
+      defaults[StartHoming] = 1;  // If 1: perform a stepper motor homing cycle at program start
+      defaults[IR_Detect] = 1;    // If 1: enable the IR sensors to detect if trains block movement
+      defaults[LCD_Display] = 0;  // If 1: enable the LCD Display (which may interfere with RS-Bus)
     break;
     //
     case FunctionDecoder:
