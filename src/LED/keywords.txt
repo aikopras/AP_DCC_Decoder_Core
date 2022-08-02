@@ -1,0 +1,61 @@
+#########################################
+# Syntax Coloring Map For AP_DCC_LED
+#########################################
+
+#########################################
+# Datatypes (KEYWORD1)
+#########################################
+Basic_Led	KEYWORD1
+Flash_Led	KEYWORD1
+DCC_Led		KEYWORD1
+FadeOut_Led	KEYWORD1
+
+#########################################
+# Methods and Functions (KEYWORD2)
+#########################################
+attach			KEYWORD2
+ledIsOn			KEYWORD2
+turn_on			KEYWORD2
+turn_off		KEYWORD2
+toggle			KEYWORD2
+
+flash			KEYWORD2
+flashSlow		KEYWORD2
+flashFast		KEYWORD2
+update			KEYWORD2
+
+start_up		KEYWORD2
+activity		KEYWORD2
+feedback		KEYWORD2
+
+fadeOut 		KEYWORD2
+
+flashOntime		KEYWORD2
+flashOfftime		KEYWORD2
+flashPause		KEYWORD2
+flashCount		KEYWORD2
+neverStopFlashing	KEYWORD2
+
+fadeTime		KEYWORD2
+fadeSteps		KEYWORD2
+pwmFrequency		KEYWORD2
+
+#########################################
+# Instances (KEYWORD2)
+#########################################
+
+
+#########################################
+# Constants (LITERAL1)
+#########################################
+flashOntime		LITERAL1
+flashOfftime		LITERAL1
+flashPause		LITERAL1
+flashCount		LITERAL1
+neverStopFlashing	LITERAL1
+
+fadeTime		LITERAL1
+fadeSteps		LITERAL1
+pwmFrequency		LITERAL1
+
+
