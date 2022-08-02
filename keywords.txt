@@ -1,0 +1,29 @@
+#########################################
+# Syntax Coloring Map For AP_DCC_library 
+#########################################
+
+#########################################
+# Datatypes (KEYWORD1)
+#########################################
+
+#########################################
+# Methods and Functions (KEYWORD2)
+#########################################
+reboot				KEYWORD2
+initPoM				KEYWORD2
+processMessage			KEYWORD2
+attach				KEYWORD2
+checkForNewDecoderAddress	KEYWORD2
+addressProgramming		KEYWORD2
+init				KEYWORD2
+update				KEYWORD2
+
+#########################################
+# Instances (KEYWORD2)
+#########################################
+TLast				KEYWORD2
+
+#########################################
+# Constants (LITERAL1)
+#########################################
+
