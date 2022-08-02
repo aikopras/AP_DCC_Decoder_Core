@@ -82,7 +82,18 @@ const uint8_t ackPin = PIN_PE0;       // PIN_PE0 (11)
 const uint8_t buttonPin = PIN_PE1;    // PIN_PE1 (12)
 const uint8_t ledPin = PIN_PE2;       // PIN_PE2 (13)
 
-#elif defined(__AVR_DA__)
+#elif defined(DX_28_PINS)
+// This is the servo decoder, using the Dx board layout
+// The onboard USB connector is Serial1
+const uint8_t rsBusUsart = 0;         // PIN_PA4 / Alternative Pin
+const bool swapUsartPin = true;       // Use the alternative USART pin
+const uint8_t rsBusRX = PIN_PA0;      // PIN_PA0
+const uint8_t dccPin = PIN_PD0;       // PIN_PD0
+const uint8_t ackPin = PIN_PD1;       // PIN_PD1
+const uint8_t buttonPin = PIN_PD2;    // PIN_PD2
+const uint8_t ledPin = PIN_PA7;       // PIN_PA7 / on-board LED
+
+#elif defined(DA_48_PINS)
 // This is the AVR128DA48 Curiosity Nano, using the Dx board layout
 // The onboard USB connector is Serial1
 const uint8_t rsBusUsart = 0;         // PIN_PA4 / Alternative Pin
