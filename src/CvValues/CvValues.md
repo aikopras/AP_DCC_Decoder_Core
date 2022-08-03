@@ -1,4 +1,4 @@
-# The CvValues Class #
+# <a name="CvValues"></a>The CvValues Class #
 
 The CvValues Class allows to read, modify and initialise the  Configuration Variables (CVs). CVs are stored in EEPROM, and keep their values after power down. The user sketch should call `cvValues.init()` as part of its `setup()` function. `cvValues.init()` checks if the EEPROM is still empty, or already filled with CV values. If the EEPROM is still empty, `cvValues.init()` will fill the EEPROM with  default values defined by this library. For different types of decoders this library provides different sets of default values. The user sketch may override these default values, if needed.
 
