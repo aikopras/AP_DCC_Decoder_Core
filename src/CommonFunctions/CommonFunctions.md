@@ -1,5 +1,5 @@
 
-# CommonDecHwFunctions functions #
+# <a name="CommonDecHwFunctions"></a>CommonDecHwFunctions functions #
 This is a core class needed by every decoder and it has two functions: `init()` and `update()`.
 
 #### void init(void) ####

@@ -1,4 +1,4 @@
-# The CvProgramming Class #
+# <a name="CvProgramming"></a>The CvProgramming Class #
 This class has two functions, of which only one is relevant for the main sketch: `processMessage()`.
 
 #### void processMessage(Dcc::CmdType_t cmdType) ####

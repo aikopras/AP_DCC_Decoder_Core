@@ -1,4 +1,4 @@
-# AP_DCC_LED #
+# <a name="LED"></a>AP_DCC_LED #
 
 Arduino library containing all the LED specific code needed for the various DCC decoders. Although this library is part of the DCC decoder core Library, it can also be used seperately.
 
