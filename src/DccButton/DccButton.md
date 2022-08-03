@@ -1,8 +1,5 @@
-# Button Library for DCC Decoders
+# <a name="AP_DccButton"></a>Button Library for DCC Decoders
 
-#### Source: ####
-- https://github.com/aikopras/AP_DccButton
-- https://github.com/JChristensen/JC_Button  
 
 ## Introduction ##
 This library is a modification of Jack Christensen JC_Button, to make the code resemble the other AP_DCC libraries and include it into AP_DCC_Decoder_Core. Its functionality may be compared to the buttons part of the MoBaTools library. However, whereas the MoBaTools library operates on an Array of buttons, (the object created by) this library will operate on a single button. Also the code of this library is shorter than that of the MoBaTools library.
@@ -13,15 +10,7 @@ The simplest way to use a button with an AVR microcontroller is to wire the butt
 
 A derived class, ToggleButton, implements button objects that need only "push-on, push-off" functionality.
 
-## Examples ##
-The following example sketches are included:
-
-- **SimpleOnOff**: Just turns the Arduino's pin 13 LED on and off.
-- **LongPress**: Demonstrates detecting long and short button presses.
-- **Toggle**: Demonstrates ToggleButton functionality.
-
-
-## Button Library Functions
+## <a name="DccButton"></a> The DccButton class ##
 
 ### attach(pin, dbTime, puEnable, invert)
 ##### Description
@@ -140,8 +129,8 @@ The time in milliseconds when the button last changed state *(unsigned long)*
 ```c++
 unsigned long msLastChange = myButton.lastChange();
 ```
-
-## ToggleButton Library Functions
+----
+## <a name="ToggleButton"></a> The ToggleButton class ##
 
 ### attach(pin, dbTime, puEnable, invert, initialState)
 ##### Description
@@ -215,7 +204,17 @@ else
     // do something different
 }
 ```
+----
+## Examples ##
+The following example sketches are included:
 
+- **SimpleOnOff**: Just turns the Arduino's pin 13 LED on and off.
+- **LongPress**: Demonstrates detecting long and short button presses.
+- **Toggle**: Demonstrates ToggleButton functionality.
+
+
+## Reference: ##
+- https://github.com/JChristensen/JC_Button  
 
 ## License
 Arduino Button Library Copyright (C) 2018-2019 Jack Christensen GNU GPL v3.0

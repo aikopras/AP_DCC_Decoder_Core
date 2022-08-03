@@ -1,4 +1,4 @@
-# <a name="LED"></a>AP_DccLED #
+# <a name="AP_DccLED"></a>AP_DccLED #
 
 Arduino library containing all the LED specific code needed for the various DCC decoders. Although this library is part of the DCC decoder core Library, it can also be used seperately.
 
@@ -14,7 +14,7 @@ Technically, the Flash_Led inherits methods and attributes from the Basic_Led, t
 
 ---
 
-## Basic_Led ##
+## <a name="Basic_Led"></a>Basic_Led ##
 The `Basic_Led` class is intended for simple LED actions, such as turning the LED on, off or to toggle its state.
 
 #### - void attach (uint8_t pin, bool invert=false) ####
@@ -37,7 +37,7 @@ If the LED is off, it will be turned on.
 
 ---
 
-## Flash_Led ##
+## <a name="Flash_Led"></a>Flash_Led ##
 The `Flash_Led` class allows the flashing of LEDs. The class inherits methods and attributes from the `Basic_Led` class, so all the methods described above can  be used again. In addition, the following methods and attributes exist.
 
 #### Flash_Led Attributes: ####
@@ -75,7 +75,7 @@ Should be called from main as often as possible. Update will check every 100ms i
 
 ---
 
-## DCC_Led ##
+## <a name="DCC_Led"></a>DCC_Led ##
 The idea of the DCC_Led class is to define some common methods that can be used (and are therefore the same) for each decoder.
 The `DCC_Led` class inherits methods and attributes from the `Flash_Led` class, so all the methods described there can  be used again. In addition, the following methods exist.
 
@@ -90,7 +90,7 @@ Single short flash (500ms), to indicate that an (RS-Bus) feedback message is sen
 
 ---
 
-## FadeOut_Led ##
+## <a name="FadeOut_Led"></a>FadeOut_Led ##
 The `FadeOut_Led` class was defined to allow LEDs to slowly fade out, without using the hardware PWM functions that many boards offer. Development was needed for a board with a Mega2560 processor, which connected a large number of LEDs that could not be attached to pins that supported with hardware PWM. Since the `FadeOut_Led` class is relatively expensive in both RAM and CPU usage, in many cases it might be better to use other libraries that support hardware based FadeOut (and FadeIn).
 
 #### Fade_Led Attributes: ####
