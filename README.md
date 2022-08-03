@@ -37,11 +37,11 @@ The only library file that needs to be included by the main sketch is `AP_Access
 ## DCC decoder objects ##
 The following objects, plus their associated classes, become available to the user sketch:
 
-- **decoderHardware** ([class: CommonDecHwFunctions](src/CommonFunctions/CommonFunctions.md)). Initialises the following decoder hardware: DCC interface, RS-Bus interface, onboard LED and the programming button. Provides two functions: `init()` and `update()`.
+- **decoderHardware** ([class: CommonDecHwFunctions](src/CommonFunctions/CommonFunctions.md#CommonDecHwFunctions)). Initialises the following decoder hardware: DCC interface, RS-Bus interface, onboard LED and the programming button. Provides two functions: `init()` and `update()`.
 
-- **dcc** ([class:Dcc](https://github.com/aikopras/AP_DCC_library#DCC)): the main loop of the user sketch should call *`dcc.input()`* to check if a new DCC message has been received. If a new DCC message was received, the `dcc.cmdType` should be inspected to determine the kind of DCC command. Three main command types are possible: *accessory command*, *loco command* and *CV programming command*. The Dcc class is defined as part of the [AP_DCC_library](https://github.com/aikopras/AP_DCC_library#AP_DCC_library)
-  - **accCmd** ([class: Accessory](https://github.com/aikopras/AP_DCC_library#ACCESSORY)): if `dcc.cmdType` is of type `MyAccessoryCmd`, additional information, such as the `turnout` and `position`, is provided by the `accCmd` object.
-  - **locoCmd** ([class: Loco](https://github.com/aikopras/AP_DCC_library#LOCO)): if `dcc.cmdType` returns any of the loco types (such as `MyLocoSpeedCmd` or `MyLocoF0F4Cmd`), additional information is provided by the `locoCmd` object.
+- **dcc** ([class:Dcc](https://github.com/aikopras/AP_DCC_library#Dcc)): the main loop of the user sketch should call *`dcc.input()`* to check if a new DCC message has been received. If a new DCC message was received, the `dcc.cmdType` should be inspected to determine the kind of DCC command. Three main command types are possible: *accessory command*, *loco command* and *CV programming command*. The Dcc class is defined as part of the [AP_DCC_library](https://github.com/aikopras/AP_DCC_library#AP_DCC_library)
+  - **accCmd** ([class: Accessory](https://github.com/aikopras/AP_DCC_library#Accessory)): if `dcc.cmdType` is of type `MyAccessoryCmd`, additional information, such as the `turnout` and `position`, is provided by the `accCmd` object.
+  - **locoCmd** ([class: Loco](https://github.com/aikopras/AP_DCC_library#Loco)): if `dcc.cmdType` returns any of the loco types (such as `MyLocoSpeedCmd` or `MyLocoF0F4Cmd`), additional information is provided by the `locoCmd` object.
   - **cvCmd** ([class: CvAccess](https://github.com/aikopras/AP_DCC_library#CvAccess)): if `dcc.cmdType` returns `MyPomCmd`, the number and value of the received CV can be obtained via the `cvCmd` object.
 
 - **CvProgramming** ([class CvProgramming](src/CommonFunctions/CvProgramming.md#CvProgramming)): if `dcc.cmdType` returns `MyPomCmd` or `SmCmd`, a call should be made to `cvProgramming.processMessage()` to process the message.
