@@ -3,7 +3,7 @@
 
 ## Direct links: ##
 - [AP_DCC_Library  
-  dcc.input()](https://github.com/aikopras/AP_DCC_library)
+  dcc.input()](https://github.com/aikopras/AP_DCC_library#AP_DCC_library)
 - [RSBus library](https://github.com/aikopras/RSbus)
 - [Pin assignments: boards.h](src/boards.h)
 - [Common Hardware Functions:  
@@ -17,7 +17,7 @@
 NU DOEN: BUTTON beschrijving
 ## Purpose ##
 
-Implements the core functions and objects needed by every DCC decoder that supports Configuration Variables (CVs) and feedback via RS-Bus messages. It builds upon the [AP_DCC_Library](https://github.com/aikopras/AP_DCC_library) and the [RSBus](https://github.com/aikopras/RSbus) library.
+Implements the core functions and objects needed by every DCC decoder that supports Configuration Variables (CVs) and feedback via RS-Bus messages. It builds upon the [AP_DCC_library](https://github.com/aikopras/AP_DCC_library#AP_DCC_library) and the [RSBus](https://github.com/aikopras/RSbus) library.
 
 The DCC decoder core initialises the DCC and RS-Bus hardware, by using the pin and USART settings as defined in [boards.h](src/boards.h).
 
@@ -32,17 +32,17 @@ The library has been tested on traditional ATMega processors, such as the ATMega
 ____
 
 ## Using the DCC Decoder Core ##
-The only library file that needs to be included by the main sketch is `AP_Accessory_Common.h`. This header file includes the following header files and libraries: `CvValues.h`, `AP_DCC_Library`, `RSbus`, `AP_DCC_LED` and `AP_DCC_Button`. Instead of `AP_Accessory_Common.h`, it is also possible to include individual header files if limited functionality is needed only.
+The only library file that needs to be included by the main sketch is `AP_Accessory_Common.h`. This header file includes the following header files and libraries: `CvValues.h`, `AP_DCC_library`, `RSbus`, `AP_DCC_LED` and `AP_DCC_Button`. Instead of `AP_Accessory_Common.h`, it is also possible to include individual header files if limited functionality is needed only.
 
 ## DCC decoder objects ##
 The following objects, plus their associated classes, become available to the user sketch:
 
 - **[decoderHardware](src/CommonFunctions/CommonFunctions.md)** (class: `CommonDecHwFunctions`). Initialises the following decoder hardware: DCC interface, RS-Bus interface, onboard LED and the programming button. Provides two functions: `init()` and `update()`.
 
-- **[dcc](https://github.com/aikopras/AP_DCC_library)** (class: `Dcc`): the main loop of the user sketch should call *`dcc.input()`* to check if a new DCC message has been received. If a new DCC message was received, the `dcc.cmdType` should be inspected to determine the kind of DCC command. Three main command types are possible: *accessory command*, *loco command* and *CV programming command*. The Dcc class is defined as part of the [AP_DCC_library](https://github.com/aikopras/AP_DCC_library)
+- **[dcc](https://github.com/aikopras/AP_DCC_library#DCC)** (class: `Dcc`): the main loop of the user sketch should call *`dcc.input()`* to check if a new DCC message has been received. If a new DCC message was received, the `dcc.cmdType` should be inspected to determine the kind of DCC command. Three main command types are possible: *accessory command*, *loco command* and *CV programming command*. The Dcc class is defined as part of the [AP_DCC_library](https://github.com/aikopras/AP_DCC_library#AP_DCC_library)
   - **[accCmd](https://github.com/aikopras/AP_DCC_library#ACCESSORY)** (class: `Accessory`): if `dcc.cmdType` is of type `MyAccessoryCmd`, additional information, such as the `turnout` and `position`, is provided by the `accCmd` object.
-  - **locoCmd** (class: `Loco`): if `dcc.cmdType` returns any of the loco types (such as `MyLocoSpeedCmd` or `MyLocoF0F4Cmd`), additional information is provided by the `locoCmd` object.
-  - **cvCmd** (class: `CvAccess`): if `dcc.cmdType` returns `MyPomCmd`, the number and value of the received CV can be obtained via the `cvCmd` object.
+  - **[locoCmd](https://github.com/aikopras/AP_DCC_library#LOCO)** (class: `Loco`): if `dcc.cmdType` returns any of the loco types (such as `MyLocoSpeedCmd` or `MyLocoF0F4Cmd`), additional information is provided by the `locoCmd` object.
+  - **[cvCmd](https://github.com/aikopras/AP_DCC_library#CvAccess)** (class: `CvAccess`): if `dcc.cmdType` returns `MyPomCmd`, the number and value of the received CV can be obtained via the `cvCmd` object.
   - **[CvProgramming](src/CommonFunctions/CvProgramming.md)** (class `CvProgramming`): if `dcc.cmdType` returns `MyPomCmd` or `SmCmd`, a call should be made to `cvProgramming.processMessage()` to process the message.
 
 - **[cvValues](src/CvValues/CvValues.md)** (class `CvValues`): the `init()` method of `cvValues` should be called in `setup()` of the main sketch to select the correct set of CVs for this decoder. The `read()` method should be used to retrieve individual CV values.
