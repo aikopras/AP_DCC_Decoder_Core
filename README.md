@@ -1,6 +1,22 @@
 
 # The DCC decoder core #
 
+## Direct links: ##
+- [AP_DCC_Library  
+  dcc.input()](https://github.com/aikopras/AP_DCC_library)
+- [RSBus library](https://github.com/aikopras/RSbus)
+- [Pin assignments: boards.h](src/boards.h)
+- [Common Hardware Functions:  
+  decoderHardware.init() and decoderHardware.update()](src/CommonFunctions/CommonFunctions.md)
+- [List of Configuration Variables,  
+  cvValues.init(), cvValues.read() and cvValues.write()](src/CvValues/CvValues.md)
+- [CvProgramming  
+  cvProgramming.processMessage(...)](src/CommonFunctions/CvProgramming.md)  
+
+
+NU DOEN: BUTTON beschrijving
+## Purpose ##
+
 Implements the core functions and objects needed by every DCC decoder that supports Configuration Variables (CVs) and feedback via RS-Bus messages. It builds upon the [AP_DCC_Library](https://github.com/aikopras/AP_DCC_library) and the [RSBus](https://github.com/aikopras/RSbus) library.
 
 The DCC decoder core initialises the DCC and RS-Bus hardware, by using the pin and USART settings as defined in [boards.h](src/boards.h).
@@ -13,22 +29,30 @@ If the user pushes the programming button, the core functions respond by initial
 
 The library has been tested on traditional ATMega processors, such as the ATMega 16A, ATMega 328 (UNO, Nano) and ATMega2560 (Mega), but also on the newer MegaAVR processors, such as 4808 (Thinary), 4809 (Nano Every) and the AVR128DA. For the design of new boards the use of these newer processors is recommended. Note that dedicated "boards" may need to be installed in the Arduino IDE to support these processors, such as [MightyCore](https://github.com/MCUdude/MightyCore), [MegaCore](https://github.com/MCUdude/MegaCore), [MegaCoreX](https://github.com/MCUdude/MegaCoreX) and [DxCore](https://github.com/SpenceKonde/DxCore). For each board the mapping between external (DCC and RS-Bus) signals and Arduino pin numbers is defined in the [boards.h](src/boards.h) file.
 
-----
+____
+
+## Using the DCC Decoder Core ##
+The only library file that needs to be included by the main sketch is `AP_Accessory_Common.h`. This header file includes the following header files and libraries: `CvValues.h`, `AP_DCC_Library`, `RSbus`, `AP_DCC_LED` and `AP_DCC_Button`. Instead of `AP_Accessory_Common.h`, it is also possible to include individual header files if limited functionality is needed only.
+
 ## DCC decoder objects ##
-The only library file that needs to be included by the main sketch is `AP_Accessory_Common.h`; this header file includes the following header files and libraries: `CvValues.h`, `AP_DCC_Library`, `RSbus`, `AP_DCC_LED` and `AP_DCC_Button`. As a result, the following objects become available to the user sketch:
+The following objects, plus their associated classes, become available to the user sketch:
 
-- `decoderHardware (class: CommonDecHwFunctions)`. Initialises the following decoder hardware: DCC interface, RS-Bus interface, onboard LED and the programming button. Provides two functions: `init()` and `update()`. See [Common Hardware Functions](src/CommonFunctions/CommonFunctions.md).
+- **[decoderHardware](src/CommonFunctions/CommonFunctions.md)** (class: `CommonDecHwFunctions`). Initialises the following decoder hardware: DCC interface, RS-Bus interface, onboard LED and the programming button. Provides two functions: `init()` and `update()`.
 
-- `dcc (class: Dcc)`: the main loop of the user sketch should call *`dcc.input()`* to check if a new DCC message has been received. If a new DCC message was received, the `dcc.cmdType` should be inspected to determine the kind of DCC command. Three main command types are possible: *accessory command*, *loco command* and *CV programming command*. The Dcc class is defined as part of the [AP_DCC_library](https://github.com/aikopras/AP_DCC_library)
-  - `accCmd (class: Accessory)`: if `dcc.cmdType` is of type `MyAccessoryCmd`, additional information, such as the `turnout` and `position`, is provided by the `accCmd` object.
-  - `locoCmd (class: Loco)`: if `dcc.cmdType` returns any of the loco types (such as `MyLocoSpeedCmd` or `MyLocoF0F4Cmd`), additional information is provided by the `locoCmd` object.
-  - `cvCmd (class: CvAccess)`: if `dcc.cmdType` returns `MyPomCmd`, the number and value of the received CV can be obtained via the `cvCmd` object.
-  - `cvProgramming (class CvProgramming)`: if `dcc.cmdType` returns `MyPomCmd` or `SmCmd`, a call should be made to `cvProgramming.processMessage()` to process the message. See [CvProgramming](src/CommonFunctions/CvProgramming.md).
+- **[dcc](https://github.com/aikopras/AP_DCC_library)** (class: `Dcc`): the main loop of the user sketch should call *`dcc.input()`* to check if a new DCC message has been received. If a new DCC message was received, the `dcc.cmdType` should be inspected to determine the kind of DCC command. Three main command types are possible: *accessory command*, *loco command* and *CV programming command*. The Dcc class is defined as part of the [AP_DCC_library](https://github.com/aikopras/AP_DCC_library)
+  - **[accCmd](https://github.com/aikopras/AP_DCC_library#ACCESSORY)** (class: `Accessory`): if `dcc.cmdType` is of type `MyAccessoryCmd`, additional information, such as the `turnout` and `position`, is provided by the `accCmd` object.
+  - **locoCmd** (class: `Loco`): if `dcc.cmdType` returns any of the loco types (such as `MyLocoSpeedCmd` or `MyLocoF0F4Cmd`), additional information is provided by the `locoCmd` object.
+  - **cvCmd** (class: `CvAccess`): if `dcc.cmdType` returns `MyPomCmd`, the number and value of the received CV can be obtained via the `cvCmd` object.
+  - **[CvProgramming](src/CommonFunctions/CvProgramming.md)** (class `CvProgramming`): if `dcc.cmdType` returns `MyPomCmd` or `SmCmd`, a call should be made to `cvProgramming.processMessage()` to process the message.
 
-- `cvValues (class CvValues)`: the `init()` method of `cvValues` should be called in `setup()` of the main sketch to select the correct set of CVs for this decoder. The `read()` method should be used to retrieve individual CV values. For details, see [here](src/CvValues/CvValues.md).
+- **[cvValues](src/CvValues/CvValues.md)** (class `CvValues`): the `init()` method of `cvValues` should be called in `setup()` of the main sketch to select the correct set of CVs for this decoder. The `read()` method should be used to retrieve individual CV values.
 
-- `onBoardLed (class DCC_Led)`: the onboard LED may be used to inform the user of certain events. For details, see [here](src/LED/LED.md).
+- **[onBoardLed](src/LED/LED.md)** (class DCC_Led): the onboard LED may be used to inform the user of certain events.
 
+## DCC decoder classes ##
+Next to the classes associated with the objects mentioned above, also the following classes become available:
+
+- **DCC_Button**: to read the status of (debounced) buttons
 ___
 ## Example ##
 A skeleton that shows the basic usage of the core functions (without RS-Bus feedback) is shown below.  
