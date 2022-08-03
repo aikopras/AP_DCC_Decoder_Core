@@ -29,10 +29,10 @@
 #include <Arduino.h>                  // For general definitions
 #include <AP_DCC_library.h>           // Interface to DCC input and DCC Ack pin
 #include <RSbus.h>                    // Interface to the Lenz RS-bus
-#include <AP_DCC_Button.h>            // For the onboard Button
+#include <AP_DccButton.h>             // For the onboard Button
 #include "boards.h"                   // Pins and USART being used for the various boards
-#include "AP_DCC_LED.h"               // For the onboard LED
-#include "CvValues/CvValues.h"      // To define and access cvValue
+#include "AP_DccLED.h"                // For the onboard LED
+#include "CvValues/CvValues.h"        // To define and access cvValue
 
 
 //*****************************************************************************************************

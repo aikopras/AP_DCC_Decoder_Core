@@ -1,4 +1,4 @@
-# <a name="LED"></a>AP_DCC_LED #
+# <a name="LED"></a>AP_DccLED #
 
 Arduino library containing all the LED specific code needed for the various DCC decoders. Although this library is part of the DCC decoder core Library, it can also be used seperately.
 
@@ -119,7 +119,7 @@ Should be called from main as often as possible. Update will check every 100ms i
 #### Basic on/off ####
 ````
 #include <Arduino.h>
-#include <AP_DCC_LED.h>
+#include <AP_DccLED.h>
 
 Basic_Led myLed;                         // Instantiate the LED object
 const uint8_t ledPin = LED_BUILTIN;   // Can be used for most boards (13)
@@ -138,7 +138,7 @@ void loop() {
 #### flashing ####
 ````
 #include <Arduino.h>
-#include <AP_DCC_LED.h>
+#include <AP_DccLED.h>
 
 Flash_Led myLed;                      // Instantiate the LED object
 const uint8_t ledPin = LED_BUILTIN;   // Can be used for most boards (13)

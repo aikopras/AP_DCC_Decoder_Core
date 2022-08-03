@@ -1,6 +1,6 @@
 //******************************************************************************************************
 //
-// Test sketch for the AP_DCC_Button library
+// Test sketch for the AP_DccButton library
 // Example sketch to turn an LED on and off with a tactile button switch.
 // Wire the switch from the Arduino pin to ground.
 //
@@ -12,13 +12,13 @@
 //
 //******************************************************************************************************
 #include <Arduino.h>
-#include <AP_DCC_Button.h>
+#include <AP_DccButton.h>
 
 // pin assignments
 const uint8_t buttonPin = 7;         // connect a button switch from this pin to ground
 const uint8_t ledPin = 13;           // the standard Arduino "pin 13" LED
 
-DCC_Button myButton;                 // define the button
+DccButton myButton;                 // define the button
 
 
 void setup() {

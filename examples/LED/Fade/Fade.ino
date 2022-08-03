@@ -1,6 +1,6 @@
 //******************************************************************************************************
 //
-// Test sketch for the AP_DCC_LED library
+// Test sketch for the AP_DccLED library
 // The onboard LED should slowly fade out
 // 2021/06/26 AP / 2022/07/20
 //
@@ -8,7 +8,7 @@
 //
 //******************************************************************************************************
 #include <Arduino.h>
-#include <AP_DCC_LED.h>
+#include <AP_DccLED.h>
 
 FadeOut_Led myLed;                       // Instantiate the LED object
 

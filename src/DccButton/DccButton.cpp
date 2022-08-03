@@ -1,6 +1,6 @@
 //*******************************************************************************************
 //
-// file:      AP_DCC_Button.cpp
+// file:      AP_DccButton.cpp
 // author:    Jack Christensen / Modified by Aiko Pras
 // history:   2021-06-27 V1.1   The code is originally written by Jack Christensen
 //                              https://github.com/JChristensen/JC_Button
@@ -35,13 +35,13 @@
 //           Note: Flash & RAM in bytes / Time & Delta in microseconds
 
 //*******************************************************************************************
-#include "AP_DCC_Button.h"
+#include "AP_DccButton.h"
 
 
 //*******************************************************************************************
-// attach and initialize a DCC_Button object and the pin it's connected to.
+// attach and initialize a DccButton object and the pin it's connected to.
 //*******************************************************************************************
-void DCC_Button::attach(uint8_t pin, unsigned long dbTime, bool puEnable, bool invert) {
+void DccButton::attach(uint8_t pin, unsigned long dbTime, bool puEnable, bool invert) {
   m_pin = pin;
   m_dbTime = dbTime;
   m_puEnable = puEnable;
@@ -69,7 +69,7 @@ void DCC_Button::attach(uint8_t pin, unsigned long dbTime, bool puEnable, bool i
 // returns the state of the button, true if pressed, false if released.
 // does debouncing, captures and maintains times, previous state, etc.
 //*******************************************************************************************
-bool DCC_Button::read() {
+bool DccButton::read() {
   unsigned long ms = millis();
   bool pinVal = (*m_portRegister & m_bit);
   // bool pinVal = (PIND & (1<<PD3);      // Direct port access: fast but hardcoded
@@ -93,11 +93,11 @@ bool DCC_Button::read() {
 // false (0) or true (!=0) accordingly.
 // These functions do not cause the button to be read.
 //*******************************************************************************************
-bool DCC_Button::isPressed() {
+bool DccButton::isPressed() {
   return m_state;
 }
 
-bool DCC_Button::isReleased() {
+bool DccButton::isReleased() {
   return !m_state;
 }
 
@@ -106,11 +106,11 @@ bool DCC_Button::isReleased() {
 // last two reads and return false (0) or true (!=0) accordingly.
 // These functions do not cause the button to be read.
 //*******************************************************************************************
-bool DCC_Button::wasPressed() {
+bool DccButton::wasPressed() {
   return m_state && m_changed;
 }
 
-bool DCC_Button::wasReleased() {
+bool DccButton::wasReleased() {
   return !m_state && m_changed;
 }
 
@@ -120,17 +120,17 @@ bool DCC_Button::wasReleased() {
 // Returns false (0) or true (!=0) accordingly.
 // These functions do not cause the button to be read.
 //*******************************************************************************************
-bool DCC_Button::pressedFor(unsigned long ms) {
+bool DccButton::pressedFor(unsigned long ms) {
   return m_state && m_time - m_lastChange >= ms;
 }
 
-bool DCC_Button::releasedFor(unsigned long ms) {
+bool DccButton::releasedFor(unsigned long ms) {
   return !m_state && m_time - m_lastChange >= ms;
 }
 
 //*******************************************************************************************
 // lastChange() returns the time the button last changed state, in milliseconds.                                                     *
 //*******************************************************************************************
-unsigned long DCC_Button::lastChange() {
+unsigned long DccButton::lastChange() {
   return m_lastChange;
 }

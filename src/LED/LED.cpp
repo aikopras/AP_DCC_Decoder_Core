@@ -1,6 +1,6 @@
 //******************************************************************************************************
 //
-// file:      AP_DCC_LED.cpp
+// file:      AP_DccLED.cpp
 // author:    Aiko Pras
 // history:   2019-02-24 V1.0.2 ap initial version, changed into Arduino library
 //            2021-06-15 V1.1   ap attach/detach for pins (instead of constructor)
@@ -15,7 +15,7 @@
 //
 //******************************************************************************************************
 #include <Arduino.h>
-#include "AP_DCC_LED.h"
+#include "AP_DccLED.h"
 
 
 //******************************************************************************************************

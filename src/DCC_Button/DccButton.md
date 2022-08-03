@@ -1,7 +1,7 @@
 # Button Library for DCC Decoders
 
 #### Source: ####
-- https://github.com/aikopras/AP_DCC_Button
+- https://github.com/aikopras/AP_DccButton
 - https://github.com/JChristensen/JC_Button  
 
 ## Introduction ##
@@ -39,7 +39,7 @@ None.
 ##### Example
 ```c++
 // instantiate an object:
-DCC_Button myButton;  
+DccButton myButton;  
 
 // button connected from pin 8 to ground, 25ms debounce, pull-up enabled, logic inverted
 myButton.attach(8);

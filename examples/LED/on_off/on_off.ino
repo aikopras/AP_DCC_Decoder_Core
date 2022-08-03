@@ -1,12 +1,12 @@
 //******************************************************************************************************
 //
-// Test sketch for the AP_DCC_LED library
+// Test sketch for the AP_DccLED library
 // The onboard LED should stay on 500 ms, followed by 1500 ms silence
 // 22022/07/20 AP
 //
 //******************************************************************************************************
 #include <Arduino.h>
-#include <AP_DCC_LED.h>
+#include <AP_DccLED.h>
 
 Basic_Led myLed;                         // Instantiate the LED object
 

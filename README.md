@@ -32,10 +32,10 @@ The library has been tested on traditional ATMega processors, such as the ATMega
 ____
 
 ## Using the DCC Decoder Core ##
-The only library file that needs to be included by the main sketch is `AP_Accessory_Common.h`. This header file includes the following header files and libraries: `CvValues.h`, `AP_DCC_library`, `RSbus`, `AP_DCC_LED` and `AP_DCC_Button`. Instead of `AP_Accessory_Common.h`, it is also possible to include individual header files if limited functionality is needed only.
+The only library file that needs to be included by the main sketch is `AP_Accessory_Common.h`. This header file includes the following header files and libraries: `CvValues.h`, `AP_DCC_library`, `RSbus`, `AP_DccLED` and `AP_DccButton`. Instead of `AP_Accessory_Common.h`, it is also possible to include individual header files if limited functionality is needed only.
 
-## DCC decoder objects ##
-The following objects, plus their associated classes, become available to the user sketch:
+## DCC decoder objects and classes ##
+The following objects and classes become available to the user sketch:
 
 - **decoderHardware** ([class: CommonDecHwFunctions](src/CommonFunctions/CommonFunctions.md#CommonDecHwFunctions)). Initialises the following decoder hardware: DCC interface, RS-Bus interface, onboard LED and the programming button. Provides two functions: `init()` and `update()`.
 
@@ -50,10 +50,7 @@ The following objects, plus their associated classes, become available to the us
 
 - **onBoardLed** ([class DCC_Led](src/LED/LED.md#LED)): the onboard LED may be used to inform the user of certain events.
 
-## DCC decoder classes ##
-Next to the classes associated with the objects mentioned above, also the following classes become available:
-
-- **DCC_Button**: to read the status of (debounced) buttons
+- **DccButton** ([class DCC_Led](src/LED/LED.md#LED)): to read the status of (debounced) buttons
 ___
 ## Example ##
 A skeleton that shows the basic usage of the core functions (without RS-Bus feedback) is shown below.  

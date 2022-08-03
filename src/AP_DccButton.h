@@ -1,6 +1,6 @@
 //*******************************************************************************************
 //
-// file:      AP_DCC_Button.h
+// file:      AP_DccButton.h
 // author:    Jack Christensen / Modified by Aiko Pras
 // history:   2021-06-27 V1.1   The code is originally written by Jack Christensen
 //                              https://github.com/JChristensen/JC_Button
@@ -18,7 +18,7 @@
 #pragma once
 #include <Arduino.h>
 
-class DCC_Button {
+class DccButton {
   
 public:
   // attach(pin, dbTime, puEnable, invert) initialises a button object.
@@ -93,14 +93,14 @@ private:
 // A derived class for a "push-on, push-off" (toggle) type button.
 // initial state can be given, default is off (false).
 //*******************************************************************************************
-class ToggleButton : public DCC_Button {
+class ToggleButton : public DccButton {
   
 public:
   
   // attach is similar to Button, but includes the initial state for the toggle.
   void attach(uint8_t pin, unsigned long dbTime=25, bool puEnable=true,
               bool invert=true, bool initialState=false) {
-    DCC_Button::attach(pin, dbTime, puEnable, invert);
+    DccButton::attach(pin, dbTime, puEnable, invert);
     m_toggleState = initialState;
   }
   
@@ -108,7 +108,7 @@ public:
   // read the button and return its state.
   // should be called frequently.
   bool read() {
-    DCC_Button::read();
+    DccButton::read();
     if (wasPressed()) {
       m_toggleState = !m_toggleState;
       m_changed = true;

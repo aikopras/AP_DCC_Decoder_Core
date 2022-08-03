@@ -1,6 +1,6 @@
 //******************************************************************************************************
 //
-// Test sketch for the AP_DCC_Button library
+// Test sketch for the AP_DccButton library
 // Example sketch demonstrating short and long button presses.
 //
 // A simple state machine where a short press of the button turns the Arduino LED on or off,
@@ -16,7 +16,7 @@
 //
 //******************************************************************************************************
 #include <Arduino.h>
-#include <AP_DCC_Button.h>
+#include <AP_DccButton.h>
 
 // pin assignments
 const uint8_t buttonPin = 7;               // connect a button switch from this pin to ground
@@ -24,7 +24,7 @@ const uint8_t ledPin = 13;                 // the standard Arduino "pin 13" LED
 const unsigned long LONG_PRESS = 1000;     // we define a "long press" to be 1000 ms.
 const unsigned long BLINK_INTERVAL = 100;  // in the BLINK state, switch the LED every 100 ms.
 
-DCC_Button myButton;                       // define the button
+DccButton myButton;                       // define the button
 
 
 void setup() {

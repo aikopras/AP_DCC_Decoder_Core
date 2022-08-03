@@ -1,6 +1,6 @@
 //******************************************************************************************************
 //
-// file:      AP_DCC_LED.h
+// file:      AP_DccLED.h
 // author:    Aiko Pras
 // history:   2019-02-24 V1.0.2 ap initial version, changed into Arduino library
 //            2021-06-26 V1.2   ap extended with fade out

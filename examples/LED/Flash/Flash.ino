@@ -1,12 +1,12 @@
 //******************************************************************************************************
 //
-// Test sketch for the AP_DCC_LED library
+// Test sketch for the AP_DccLED library
 // The onboard LED should blink 5 times, followed by 2 seconds off
 // 2019/02/24 / 2021/06/15 / 2022/07/20 AP
 //
 //******************************************************************************************************
 #include <Arduino.h>
-#include <AP_DCC_LED.h>
+#include <AP_DccLED.h>
 
 Flash_Led myLed;                      // Instantiate the LED object
 

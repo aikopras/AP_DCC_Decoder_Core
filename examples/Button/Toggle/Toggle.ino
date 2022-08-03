@@ -1,6 +1,6 @@
 //******************************************************************************************************
 //
-// Test sketch for the AP_DCC_Button library
+// Test sketch for the AP_DccButton library
 // Example sketch to demonstrate toggle buttons.
 //
 // Copyright (C) 2018 by Jack Christensen and licensed under
@@ -11,7 +11,7 @@
 //
 //******************************************************************************************************
 #include <Arduino.h>
-#include <AP_DCC_Button.h>
+#include <AP_DccButton.h>
 
 // pin assignments
 const uint8_t buttonPin = 7;               // connect a button switch from this pin to ground

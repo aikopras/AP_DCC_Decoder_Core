@@ -31,8 +31,8 @@ extern RSbusHardware rsbusHardware;   // Instantiated in rs_bus.cpp
 // The RSbusConnection class is defined in the RSbus library
 RSbusConnection rsbusPom;             // Used for feedback on PoM messages (RS-bus address 128)
 
-DCC_Led onBoardLed;                   // The DCC_LED class is defined in the AP_DCC_LED Library
-DCC_Button onBoardButton;             // The DCC_Button class is defined in the AP_DCC_Button Library
+DCC_Led onBoardLed;                   // The DCC_LED class is defined in the AP_DccLED Library
+DccButton onBoardButton;              // The DccButton class is defined in the AP_DccButton Library
 
 // Classes defined in here
 ProgButton progButton;                // The onBoardButton is used as programming button
@@ -65,7 +65,7 @@ void Processor::reboot(void) {
 //*****************************************************************************************************
 // Programming button 
 //*****************************************************************************************************
-// The ProgButton class is basically a small wrapper around the DCC_Button class (see AP_DCC_Button)
+// The ProgButton class is basically a small wrapper around the DccButton class (see AP_DccButton)
 void ProgButton::attach(uint8_t pin) {
   onBoardButton.attach(pin);
   delay(500);

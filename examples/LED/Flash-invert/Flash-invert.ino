@@ -1,6 +1,6 @@
 //******************************************************************************************************
 //
-// Test sketch for the AP_DCC_LED library
+// Test sketch for the AP_DccLED library
 // Some boards have an onboard LED that goes ON if the output becomes low.
 // An example of such board is the AVR128DA64 curiosity nano
 // For such boards attach() may include a second (boolean) parameter, that indicates whether or not
@@ -11,7 +11,7 @@
 //
 //******************************************************************************************************
 #include <Arduino.h>
-#include <AP_DCC_LED.h>
+#include <AP_DccLED.h>
 
 Flash_Led myLed;                         // Instantiate the LED object
 
