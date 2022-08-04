@@ -2,16 +2,16 @@
 # The DCC decoder core #
 
 ## Direct links: ##
-- [AP_DCC_Library  
-  dcc.input()](https://github.com/aikopras/AP_DCC_library#AP_DCC_library)
-- [RSBus library](https://github.com/aikopras/RSbus)
-- [Common Hardware Functions:  
-  decoderHardware.init() and decoderHardware.update()](src/CommonFunctions/CommonFunctions.md)
-- [List of Configuration Variables,  
-  cvValues.init(), cvValues.read() and cvValues.write()](src/CvValues/CvValues.md)
-- [CvProgramming  
-  cvProgramming.processMessage(...)](src/CommonFunctions/CvProgramming.md)  
-- [LEDs](src/LED/LED.md#AP_DccLED)
+- [AP_DCC_Library:](https://github.com/aikopras/AP_DCC_library#AP_DCC_library)  
+  dcc.input()
+- [RSBus library:](https://github.com/aikopras/RSbus)
+- [Common Hardware Functions:](src/CommonFunctions/CommonFunctions.md)  
+  decoderHardware.init() and decoderHardware.update()
+- [Configuration Variables:](src/CvValues/CvValues.md)  
+  List of CVs, cvValues.init(), cvValues.read() and cvValues.write()
+- [CvProgramming:](src/CommonFunctions/CvProgramming.md)  
+   cvProgramming.processMessage(...)
+- [LEDs](src/DccLED/DccLED.md#AP_DccLED)  
 - [Buttons](src/DccButton/DccButton.md#DccButton)
 - [Pin assignments: boards.h](src/boards.h)
 
@@ -52,10 +52,10 @@ The following objects and classes become available to the user sketch:
 
 - **cvValues** ([class CvValues](src/CvValues/CvValues.md#CvValues)): allows the main sketch to `read()` or `write()` individual CV values. To select the matching set of CV default values for this type of decoder, `setup()` of the main sketch should call `cvValues.init()`.
 
-- **onBoardLed** ([defined in AP_DccLED.h](src/LED/LED.md#AP_DccLED)): the onboard LED may be used to inform the user of specific events. To accommodate different LED behaviour, the following classes are defined:
-  - [Basic_Led](src/LED/LED.md#Basic_Led): to turn on, off or toggle LEDs.
-  - [Flash_Led](src/LED/LED.md#Flash_Led): allows LEDs to flash slow, fast, or user specified.
-  - [DCC_Led](src/LED/LED.md#DCC_Led): the typical class for onboard LEDs.
+- **onBoardLed** ([defined in AP_DccLED.h](src/DccLED/DccLED.md#AP_DccLED)): the onboard LED may be used to inform the user of specific events. To accommodate different LED behaviour, the following classes are defined:
+  - [Basic_Led](src/DccLED/DccLED.md#Basic_Led): to turn on, off or toggle LEDs.
+  - [Flash_Led](src/DccLED/DccLED.md#Flash_Led): allows LEDs to flash slow, fast, or user specified.
+  - [DCC_Led](src/DccLED/DccLED.md#DCC_Led): the typical class for onboard LEDs.
 
 - **Buttons**: the user sketch may need to read the status of (debounced) buttons. Two different classes are provided: the [DccButton](src/DccButton/DccButton.md#DccButton) class for normal buttons and the [ToggleButton](src/DccButton/DccButton.md#ToggleButton) class for toggle buttons. The onboardButton is of class DccButton, but this button should not be used by the user sketch.
 
