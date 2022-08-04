@@ -4,7 +4,7 @@
 ## Direct links: ##
 - [AP_DCC_Library](https://github.com/aikopras/AP_DCC_library#AP_DCC_library):
   dcc.input()
-- [RSBus library:](https://github.com/aikopras/RSbus)
+- [RSBus library:](https://github.com/aikopras/RSbus#RSbus)
   RSbusConnection
 - [Common Hardware Functions](src/CommonFunctions/CommonFunctions.md):
   decoderHardware.init() and decoderHardware.update()
