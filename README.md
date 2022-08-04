@@ -39,7 +39,7 @@ The only library file that needs to be included by the main sketch is `AP_Access
 ## DCC decoder objects and classes ##
 The following objects and classes become available to the user sketch:
 
-- **decoderHardware** ([class: CommonDecHwFunctions](src/CommonFunctions/CommonFunctions.md#CommonDecHwFunctions)): initialises the following decoder hardware: DCC interface, RS-Bus interface, onboard LED and the programming button. Provides two functions: `init()` and `update()`.
+- **decoderHardware** ([class: CommonDecHwFunctions](src/CommonFunctions/CommonFunctions.md#CommonDecHwFunctions)): initialises the following decoder hardware: DCC interface, RS-Bus interface, onboard LED and the programming button. Provides two functions that *must* be included in the user sketch: `init()` and `update()`.
 
 - **dcc** ([class:Dcc](https://github.com/aikopras/AP_DCC_library#Dcc)): the Dcc class informs the main sketch which kind of DCC command has been received. The main loop of the user sketch should call *`dcc.input()`* to check if a new DCC message is received. If a new DCC message is received, the `dcc.cmdType` should be inspected to determine the kind of DCC command. Three main command types are possible: *accessory command*, *loco (multi-function) command* or *CV access (POM, SM) command*. The Dcc class is defined as part of the [AP_DCC_library](https://github.com/aikopras/AP_DCC_library#AP_DCC_library).
   - **accCmd** ([class: Accessory](https://github.com/aikopras/AP_DCC_library#Accessory)): if `dcc.cmdType` is of type `MyAccessoryCmd`, additional information, such as the `turnout` and `position`, is provided by the `accCmd` object.
@@ -83,4 +83,4 @@ void loop() {
   decoderHardware.update();
 }
 ````
-A more elaborate example, which includes feedback via the RS_Bus, is shown [here](examples/BasicDecoder/BasicDecoder.md) in BasicDecoder.md
+A more elaborate example, which includes feedback via the RS_Bus, is shown [BasicDecoder.md](examples/BasicDecoder/BasicDecoder.md). 
