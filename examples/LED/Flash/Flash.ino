@@ -8,7 +8,7 @@
 #include <Arduino.h>
 #include <AP_DccLED.h>
 
-Flash_Led myLed;                      // Instantiate the LED object
+FlashLed myLed;                       // Instantiate the LED object
 
 const uint8_t ledPin = LED_BUILTIN;   // Can be used for most boards (13)
 

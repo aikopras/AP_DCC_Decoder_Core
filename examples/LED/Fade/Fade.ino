@@ -4,13 +4,13 @@
 // The onboard LED should slowly fade out
 // 2021/06/26 AP / 2022/07/20
 //
-// Each FadeOut_Led needs 23 bytes of RAM.
+// Each FadeOutLed needs 23 bytes of RAM.
 //
 //******************************************************************************************************
 #include <Arduino.h>
 #include <AP_DccLED.h>
 
-FadeOut_Led myLed;                       // Instantiate the LED object
+FadeOutLed myLed;                        // Instantiate the LED object
 
 const uint8_t ledPin = LED_BUILTIN;      // Can be used for most boards
 

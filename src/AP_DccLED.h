@@ -12,25 +12,25 @@
 //            such as the decoder (re)starts, performs some activity or sends feedback
 //
 // Kind of LED objects:
-// - Basic_Led:   these are simple on/off LEDs. No update() is needed for such LEDs
-// - Flash_Led:   extends Basic_Led with flashing
-// - DCC_Led:     extends Flash_Led with DCC decoder specific functions (start_up, activity, feedback)
-// - FadeOut_Led: extends Basic_Led with fadeOut (not recommeded: is expensive regarding RAM and CPU)
+// - BasicLed:    these are simple on/off LEDs. No update() is needed for such LEDs
+// - FlashLed:    extends BasicLed with flashing
+// - DccLed:      extends FlashLed with DCC decoder specific functions (start_up, activity, feedback)
+// - FadeOutLed:  extends BasicLed with fadeOut (not recommeded: is expensive regarding RAM and CPU)
 //
 // RAM required per object:
-// - Basic_Led:   2
-// - Flash_Led:   11
-// - DCC_Led:     11
-// - FadeOut_Led: 23
+// - BasicLed:     2
+// - FlashLed:    11
+// - DccLed:      11
+// - FadeOutLed:  23
 //
 //******************************************************************************************************
 #pragma once
 
 
 //******************************************************************************************************
-// Basic_Led
+// BasicLed
 //******************************************************************************************************
-class Basic_Led {
+class BasicLed {
 public:
   void attach (uint8_t pin, bool invert=false);     // logic may be inverted: turn_on() => LOW
   bool ledIsOn(void);                               // true if the LED is on
@@ -45,7 +45,7 @@ protected:
 
 
 //******************************************************************************************************
-// Flash_Led
+// FlashLed
 //******************************************************************************************************
 // If the LED is put in flashing mode, the following attributes  can be set:
 // - mode:              if the flash led should (continously) flash, or be (permanently) on / off
@@ -64,7 +64,7 @@ protected:
 //
 //                                                                               mode: neverStopFlashing
 //******************************************************************************************************
-class Flash_Led: public Basic_Led {
+class FlashLed: public BasicLed {
 public:
   // Attributes to set the LED's flashing behaviour
   uint8_t flashOntime;            // For flashing: time the LED should be ON (in 100ms steps)
@@ -96,10 +96,10 @@ protected:
 
 
 //******************************************************************************************************
-// DCC_Led
+// DccLed
 //******************************************************************************************************
-// The DCC_Led class extends the Flash_Led class with methods to indicate specific decoder states
-class DCC_Led: public Flash_Led {
+// The DccLed class extends the FlashLed class with methods to indicate specific decoder states
+class DccLed: public FlashLed {
   public:
     void start_up(void);            // Decoder (re)started
     void activity(void);            // Single very short flash, to indicate a switch command
@@ -108,7 +108,7 @@ class DCC_Led: public Flash_Led {
 
 
 //******************************************************************************************************
-// FadeOut_Led
+// FadeOutLed
 //******************************************************************************************************
 //
 //            +--------+
@@ -142,7 +142,7 @@ class DCC_Led: public Flash_Led {
 //  pwmOffTime = pwmInterval - pwmOnTime
 //
 //******************************************************************************************************
-class FadeOut_Led: public Basic_Led {
+class FadeOutLed: public BasicLed {
 public:
   
   // Attributes to set the LED's fading behaviour
@@ -164,7 +164,7 @@ private:
     uint16_t pwmOffTime;            // in microseconds, see figures above
     unsigned long last_fade_time;   // time (ms) since we last updated the fade settings
     unsigned long last_pwm_time;    // time (ms) since we last updated the PWM settings
-    bool fadeLedIsOn;               // for performance reasons we don't use Basic_Led::ledIsOn()
+    bool fadeLedIsOn;               // for performance reasons we don't use BasicLed::ledIsOn()
     uint8_t brightnessLevel;        // Current LED level
 };
 

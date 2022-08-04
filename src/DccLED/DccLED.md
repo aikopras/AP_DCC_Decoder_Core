@@ -5,17 +5,17 @@ Arduino library containing all the LED specific code needed for the various DCC 
 There are already several LED related libraries for model trains, of which the best known are MobaTools (https://github.com/MicroBahner/MobaTools) and the MobaLedLib (https://github.com/Hardi-St/MobaLedLib). This library supports flashing, fade-out and some specific methods that are shared between all my decoders.
 
 To accommodate specific needs and to save valuable RAM space, four different classes have been defined (between brackets how much RAM is needed per object instantiation):
-- Basic_Led (2 bytes)
-- Flash_Led (11 bytes)
-- DCC_Led (11 bytes)
-- FadeOut_Led (23 bytes)
+- BasicLed (2 bytes)
+- FlashLed (11 bytes)
+- DccLed (11 bytes)
+- FadeOutLed (23 bytes)
 
-Technically, the Flash_Led inherits methods and attributes from the Basic_Led, the DCC_Led inherits from the Flash_Led and the FadeOut_Led again inherits from the Basic_Led. This means that each class can use all Basic_Led methods, and the DCC_Led can also use the methods and (public) attributes from the Flash_Led.
+Technically, the FlashLed inherits methods and attributes from the BasicLed, the DccLed inherits from the FlashLed and the FadeOutLed again inherits from the BasicLed. This means that each class can use all BasicLed methods, and the DccLed can also use the methods and (public) attributes from the FlashLed.
 
 ---
 
-## <a name="Basic_Led"></a>Basic_Led ##
-The `Basic_Led` class is intended for simple LED actions, such as turning the LED on, off or to toggle its state.
+## <a name="BasicLed"></a>BasicLed ##
+The `BasicLed` class is intended for simple LED actions, such as turning the LED on, off or to toggle its state.
 
 #### - void attach (uint8_t pin, bool invert=false) ####
 To connect the processor output pin to the LED. In many cases the output pin for the onboard LED is `LED_BUILTIN`.
@@ -37,10 +37,10 @@ If the LED is off, it will be turned on.
 
 ---
 
-## <a name="Flash_Led"></a>Flash_Led ##
-The `Flash_Led` class allows the flashing of LEDs. The class inherits methods and attributes from the `Basic_Led` class, so all the methods described above can  be used again. In addition, the following methods and attributes exist.
+## <a name="FlashLed"></a>FlashLed ##
+The `FlashLed` class allows the flashing of LEDs. The class inherits methods and attributes from the `BasicLed` class, so all the methods described above can  be used again. In addition, the following methods and attributes exist.
 
-#### Flash_Led Attributes: ####
+#### FlashLed Attributes: ####
 All Flash attributes or of the uint8_t type, which means that the possible values range from 0..255. All times are specified in 100ms steps, which means that the highest value is 25,5 seconds.
 
 - uint8_t flashOntime <br>
@@ -54,12 +54,12 @@ Number of flashes before a pause
 - bool neverStopFlashing <br>
 A boolean to indicate if we want a single series of flashes, or that we start again after a `flashPause` with a new series of pulses.
 
-![Flash_Led Attributes](extras/Flashing.png "Flash_Led Attributes")
+![FlashLed Attributes](extras/Flashing.png "FlashLed Attributes")
 
-#### Flash_Led Methods: ####
+#### FlashLed Methods: ####
 
 #### - void attach (uint8_t pin, bool invert=false) ####
-Same as `Basic_Led` attach(), but performs some additional initialisation actions.
+Same as `BasicLed` attach(), but performs some additional initialisation actions.
 
 #### - void flash(void) ####
 Puts the LED in flashing mode, based on the settings of attributes as shown above.  
@@ -75,9 +75,9 @@ Should be called from main as often as possible. Update will check every 100ms i
 
 ---
 
-## <a name="DCC_Led"></a>DCC_Led ##
-The idea of the DCC_Led class is to define some common methods that can be used (and are therefore the same) for each decoder.
-The `DCC_Led` class inherits methods and attributes from the `Flash_Led` class, so all the methods described there can  be used again. In addition, the following methods exist.
+## <a name="DccLed"></a>DccLed ##
+The idea of the DccLed class is to define some common methods that can be used (and are therefore the same) for each decoder.
+The `DccLed` class inherits methods and attributes from the `FlashLed` class, so all the methods described there can  be used again. In addition, the following methods exist.
 
 #### - void start_up(void) ####
 To indicate that the decoder (has re)started. Two short flashes of 200ms each.
@@ -90,10 +90,10 @@ Single short flash (500ms), to indicate that an (RS-Bus) feedback message is sen
 
 ---
 
-## <a name="FadeOut_Led"></a>FadeOut_Led ##
-The `FadeOut_Led` class was defined to allow LEDs to slowly fade out, without using the hardware PWM functions that many boards offer. Development was needed for a board with a Mega2560 processor, which connected a large number of LEDs that could not be attached to pins that supported with hardware PWM. Since the `FadeOut_Led` class is relatively expensive in both RAM and CPU usage, in many cases it might be better to use other libraries that support hardware based FadeOut (and FadeIn).
+## <a name="FadeOutLed"></a>FadeOutLed ##
+The `FadeOutLed` class was defined to allow LEDs to slowly fade out, without using the hardware PWM functions that many boards offer. Development was needed for a board with a Mega2560 processor, which connected a large number of LEDs that could not be attached to pins that supported with hardware PWM. Since the `FadeOutLed` class is relatively expensive in both RAM and CPU usage, in many cases it might be better to use other libraries that support hardware based FadeOut (and FadeIn).
 
-#### Fade_Led Attributes: ####
+#### FadeOutLed Attributes: ####
 All Fade attributes or of the uint8_t type, which means that the possible values range from 0..255. All times are specified in 100ms steps, which means that the the longest time to fade out is 25,5 seconds.
 The default values may be fine for most cases.
 
@@ -105,7 +105,7 @@ Number of steps between the LED brightness moves from 100% to 0%. Higher values 
 The brightness of the LED is set by using a (software generated) PWM (Pulse Width Modulation) signal. The default frequency is 50Hz, which is high enough for the human eye. Higher values increase CPU load.
 
 #### - void attach (uint8_t pin, bool invert=false) ####
-Same as `Basic_Led` attach(), but performs some additional initialisation actions.
+Same as `BasicLed` attach(), but performs some additional initialisation actions.
 
 #### - void fadeOut(void) ####
 Starts fading the LED, using the values as specified above.
@@ -121,7 +121,7 @@ Should be called from main as often as possible. Update will check every 100ms i
 #include <Arduino.h>
 #include <AP_DccLED.h>
 
-Basic_Led myLed;                         // Instantiate the LED object
+BasicLed myLed;                         // Instantiate the LED object
 const uint8_t ledPin = LED_BUILTIN;   // Can be used for most boards (13)
 
 void setup() {
@@ -140,7 +140,7 @@ void loop() {
 #include <Arduino.h>
 #include <AP_DccLED.h>
 
-Flash_Led myLed;                      // Instantiate the LED object
+FlashLed myLed;                      // Instantiate the LED object
 const uint8_t ledPin = LED_BUILTIN;   // Can be used for most boards (13)
 
 void setup() {

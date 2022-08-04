@@ -30,8 +30,9 @@
 #include <AP_DCC_library.h>           // Interface to DCC input and DCC Ack pin
 #include <RSbus.h>                    // Interface to the Lenz RS-bus
 #include <AP_DccButton.h>             // For the onboard Button
-#include "boards.h"                   // Pins and USART being used for the various boards
 #include "AP_DccLED.h"                // For the onboard LED
+#include "AP_DccTimer.h"              // Allows timers to be used
+#include "boards.h"                   // Pins and USART being used for the various boards
 #include "CvValues/CvValues.h"        // To define and access cvValue
 
 
@@ -83,5 +84,5 @@ extern CvAccess cvCmd;                       // Instantiated in AP_DCC_library.c
 
 // The following objects provide access to the onboard LED, as well as the
 // onboard programming button
-extern DCC_Led onBoardLed;                   // Instantiated in AP_DCC_Decoder_Core.cpp
+extern DccLed onBoardLed;                    // Instantiated in AP_DCC_Decoder_Core.cpp
 extern CommonDecHwFunctions decoderHardware; // Instantiated in AP_DCC_Decoder_Core.cpp

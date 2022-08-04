@@ -1,4 +1,4 @@
-# AP_DccTimer #
+# <a name="DccTimer"></a>AP_DccTimer #
 
 Arduino library to create a (non-blocking) timer that uses the Arduino `millis()` method. It should run on all AVR processors that are using Arduino software. The library was inspired and to a large extend copied from the MoBaTools library (see acknowledgements below).
 

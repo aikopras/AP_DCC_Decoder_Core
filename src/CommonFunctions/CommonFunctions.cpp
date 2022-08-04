@@ -31,7 +31,7 @@ extern RSbusHardware rsbusHardware;   // Instantiated in rs_bus.cpp
 // The RSbusConnection class is defined in the RSbus library
 RSbusConnection rsbusPom;             // Used for feedback on PoM messages (RS-bus address 128)
 
-DCC_Led onBoardLed;                   // The DCC_LED class is defined in the AP_DccLED Library
+DccLed onBoardLed;                    // The DccLed class is defined in the AP_DccLED Library
 DccButton onBoardButton;              // The DccButton class is defined in the AP_DccButton Library
 
 // Classes defined in here

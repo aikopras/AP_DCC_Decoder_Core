@@ -8,9 +8,9 @@
 #include <Arduino.h>
 #include <AP_DccLED.h>
 
-Basic_Led myLed;                         // Instantiate the LED object
+BasicLed myLed;                         // Instantiate the LED object
 
-const uint8_t ledPin = LED_BUILTIN;   // Can be used for most boards (13)
+const uint8_t ledPin = LED_BUILTIN;     // Can be used for most boards (13)
 
 
 void setup() {

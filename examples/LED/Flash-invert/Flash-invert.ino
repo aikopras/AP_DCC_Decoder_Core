@@ -13,7 +13,7 @@
 #include <Arduino.h>
 #include <AP_DccLED.h>
 
-Flash_Led myLed;                         // Instantiate the LED object
+FlashLed myLed;                          // Instantiate the LED object
 
 const uint8_t ledPin = PIN_PC6;          // AVR128DA64 Curiosity Nano. Inverted logic
 const bool invert = true;                // true for AVR128DA64 Curiosity Nano. Otherwise false

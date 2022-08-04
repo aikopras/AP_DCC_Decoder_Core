@@ -11,14 +11,11 @@
   List of CVs, cvValues.init(), cvValues.read() and cvValues.write()
 - [CvProgramming](src/CommonFunctions/CvProgramming.md):
    cvProgramming.processMessage(...)
-- [LEDs](src/DccLED/DccLED.md#AP_DccLED): Basic_Led, Flash_Led, DCC_Led
+- [LEDs](src/DccLED/DccLED.md#AP_DccLED): BasicLed, FlashLed, DCCLed
 - [Buttons](src/DccButton/DccButton.md#DccButton): DccButton, ToggleButton
+- [Timers](src/DccTimer/DccTimer.md#DccTimer): DccTimer
 - [Pin assignments](src/boards.h): boards.h
 
-
-
-
-TODO timer
 
 TODO: Details RS-RS_Bus
 
@@ -56,11 +53,13 @@ The following objects and classes become available to the user sketch:
 - **cvValues** ([class CvValues](src/CvValues/CvValues.md#CvValues)): allows the main sketch to `read()` or `write()` individual CV values. To select the matching set of CV default values for this type of decoder, `setup()` of the main sketch should call `cvValues.init()`.
 
 - **onBoardLed** ([defined in AP_DccLED.h](src/DccLED/DccLED.md#AP_DccLED)): the onboard LED may be used to inform the user of specific events. To accommodate different LED behaviour, the following classes are defined:
-  - [Basic_Led](src/DccLED/DccLED.md#Basic_Led): to turn on, off or toggle LEDs.
-  - [Flash_Led](src/DccLED/DccLED.md#Flash_Led): allows LEDs to flash slow, fast, or user specified.
-  - [DCC_Led](src/DccLED/DccLED.md#DCC_Led): the typical class for onboard LEDs.
+  - [BasicLed](src/DccLED/DccLED.md#BasicLed): to turn on, off or toggle LEDs.
+  - [FlashLed](src/DccLED/DccLED.md#FlashLed): allows LEDs to flash slow, fast, or user specified.
+  - [DCCLed](src/DccLED/DccLED.md#DCCLed): the typical class for onboard LEDs.
 
 - **Buttons**: the user sketch may need to read the status of (debounced) buttons. Two different classes are provided: the [DccButton](src/DccButton/DccButton.md#DccButton) class for normal buttons and the [ToggleButton](src/DccButton/DccButton.md#ToggleButton) class for toggle buttons. The onboardButton is of class DccButton, but this button should not be used by the user sketch.
+
+- **Timers**: the [DccTimer](src/DccTimer/DccTimer.md#DccTimer) class allows the user sketch to include (non-blocking) timers based on Arduino's `millis()`.
 
 ___
 ## Example ##

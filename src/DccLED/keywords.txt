@@ -5,10 +5,10 @@
 #########################################
 # Datatypes (KEYWORD1)
 #########################################
-Basic_Led	KEYWORD1
-Flash_Led	KEYWORD1
-DCC_Led		KEYWORD1
-FadeOut_Led	KEYWORD1
+BasicLed		KEYWORD1
+FlashLed		KEYWORD1
+DCCLed			KEYWORD1
+FadeOutLed		KEYWORD1
 
 #########################################
 # Methods and Functions (KEYWORD2)

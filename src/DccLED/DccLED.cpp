@@ -10,8 +10,8 @@
 // purpose:   Functions related to LEDs
 //
 // Object inheritance (between brackets the required RAM)
-// Basic_Led (2) +--> Flash_Led (11) ---> DCC_Led (11)
-//               +--> FadeOut_Led (23)
+// BasicLed (2) +--> FlashLed (11) ---> DCCLed (11)
+//              +--> FadeOutLed (23)
 //
 //******************************************************************************************************
 #include <Arduino.h>
@@ -19,66 +19,66 @@
 
 
 //******************************************************************************************************
-// Basic_Led: Simple on/off LEDs
+// BasicLed: Simple on/off LEDs
 //******************************************************************************************************
-void Basic_Led::attach(uint8_t pin, bool invert){
+void BasicLed::attach(uint8_t pin, bool invert){
   _pin = pin;
   pinMode(_pin, OUTPUT);
   if (invert) _LED_ON = LOW;                // In some cases the LED goes ON if the pin goes LOW
   else _LED_ON = HIGH;
 }
 
-bool Basic_Led::ledIsOn(void){
+bool BasicLed::ledIsOn(void){
   if (digitalRead(_pin) == _LED_ON) return true;
     else return false;
 }
 
-void Basic_Led::turn_on(void){
+void BasicLed::turn_on(void){
   digitalWrite(_pin, _LED_ON);
 }
 
-void Basic_Led::turn_off(void){
+void BasicLed::turn_off(void){
   digitalWrite(_pin, !_LED_ON);
 }
 
-void Basic_Led::toggle(void){
+void BasicLed::toggle(void){
   if (ledIsOn()) turn_off();
   else turn_on();
 }
 
 
 //******************************************************************************************************
-// Flash_Led
+// FlashLed
 //******************************************************************************************************
 // attach(), turn_on() and turn_off() must be extended by modifying mode / initialising last_flash_time
-void Flash_Led::attach(uint8_t pin, bool invert){
-  Basic_Led::attach(pin, invert);
+void FlashLed::attach(uint8_t pin, bool invert){
+  BasicLed::attach(pin, invert);
   last_flash_time = millis();
 }
 
 
-void Flash_Led::turn_off(void){
+void FlashLed::turn_off(void){
   mode = alwaysOff;
-  Basic_Led::turn_off();
+  BasicLed::turn_off();
 }
 
 
-void Flash_Led::turn_on(void){
+void FlashLed::turn_on(void){
   mode = alwaysOn;
-  Basic_Led::turn_on();
+  BasicLed::turn_on();
 }
 
 
-void Flash_Led::flash(void) {
+void FlashLed::flash(void) {
   last_flash_time = millis();
   flash_time_remain = flashOntime;               // we start with the LED on
   flash_number_now = 1;                          // This is the first flash
-  Basic_Led::turn_on();
+  BasicLed::turn_on();
 }
 
 
 // make a series of flashes, then a longer pause
-void Flash_Led::flashSlow(void) {
+void FlashLed::flashSlow(void) {
   flashOntime = 5;                // 0,5 sec
   flashOfftime = 5;               // 0,5 sec
   flashCount = 1;                 // 1 flashes
@@ -88,7 +88,7 @@ void Flash_Led::flashSlow(void) {
 }
 
 
-void Flash_Led::flashFast(void) {
+void FlashLed::flashFast(void) {
   flashOntime = 1;                // 0,1 sec
   flashOfftime = 2;               // 0,2 sec
   flashCount = 1;                 // 1 flashes
@@ -98,7 +98,7 @@ void Flash_Led::flashFast(void) {
 }
 
 
-void Flash_Led::update(void) {
+void FlashLed::update(void) {
   if (mode == alwaysOn) return;                  // No update needed
   if (mode == alwaysOff) return;                 // No update needed
   unsigned long current_time = millis();         // Storing millis() in a local variable gives shorter code
@@ -128,10 +128,10 @@ void Flash_Led::update(void) {
 
 
 //******************************************************************************************************
-// DCC_Led
+// DccLed
 //******************************************************************************************************
 // Two short flashes, to indicate decoder start
-void DCC_Led::start_up(void) {
+void DccLed::start_up(void) {
   flashOntime = 2;                // 0,2 sec
   flashOfftime = 2;               // 0,2 sec
   flashCount = 2;                 // 2 flashes
@@ -140,7 +140,7 @@ void DCC_Led::start_up(void) {
 }
 
 // Single very short flash, to indicate a switch command
-void DCC_Led::activity(void) {
+void DccLed::activity(void) {
   flashOntime = 2;                // 0,1 sec
   flashCount = 1;                 // single flash
   mode = singleFlashSerie;
@@ -148,7 +148,7 @@ void DCC_Led::activity(void) {
 }
 
 // Single short flash, to indicate a RS-Bus feedback
-void DCC_Led::feedback(void) {
+void DccLed::feedback(void) {
   flashOntime = 5;                // 0,5 sec
   flashCount = 1;                 // single flash
   mode = singleFlashSerie;
@@ -157,17 +157,17 @@ void DCC_Led::feedback(void) {
 
 
 //******************************************************************************************************
-// FadeOut_Led
+// FadeOutLed
 //******************************************************************************************************
-void FadeOut_Led::attach(uint8_t pin, bool invert){
-  Basic_Led::attach(pin, invert);
+void FadeOutLed::attach(uint8_t pin, bool invert){
+  BasicLed::attach(pin, invert);
   fadeTime = 40;                  // In 100ms steps
   fadeSteps = 50;                 // Number of steps between LED is 100% and 0%
   pwmFrequency = 50;              // PWM frequency in Herz (preferably 50 or higher)
 }
 
 
-void FadeOut_Led::fadeOut(void) {
+void FadeOutLed::fadeOut(void) {
   fadeLedIsOn = false;
   brightnessLevel = fadeSteps;                   // To dim the LED brightness level counts down
   fadeStepTime = 100000 / fadeSteps * fadeTime;
@@ -177,7 +177,7 @@ void FadeOut_Led::fadeOut(void) {
 }
 
 
-void FadeOut_Led::update(void) {
+void FadeOutLed::update(void) {
   // Is it time to lower the LED's brightness?
   unsigned long Fade_Interval = micros() - last_fade_time;
   if (Fade_Interval > (fadeStepTime)) {
