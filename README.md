@@ -19,7 +19,7 @@
 
 ## Purpose ##
 
-Implements the core functions and objects needed by every DCC decoder that supports Configuration Variables (CVs) and feedback via RS-Bus messages. It builds upon the [AP_DCC_library](https://github.com/aikopras/AP_DCC_library#AP_DCC_library) and the [RSBus](https://github.com/aikopras/RSbus) library.
+Implements the common core functions and objects needed by every DCC decoder that supports Configuration Variables (CVs) and feedback via RS-Bus messages. It builds upon the [AP_DCC_library](https://github.com/aikopras/AP_DCC_library) and the [RSBus](https://github.com/aikopras/RSbus) library.
 
 The DCC decoder core initialises the DCC and RS-Bus hardware, by using the pin and USART settings as defined in [boards.h](src/boards.h).
 
@@ -34,7 +34,7 @@ The library has been tested on traditional ATMega processors, such as the ATMega
 ____
 
 ## Using the DCC Decoder Core ##
-The only library file that needs to be included by the main sketch is `AP_Accessory_Common.h`. This header file includes the following header files and libraries: `CvValues.h`, `AP_DCC_library`, `RSbus`, `AP_DccLED` and `AP_DccButton`. Instead of `AP_Accessory_Common.h`, it is also possible to include individual header files if limited functionality is needed only.
+The only library file that needs to be included by the main sketch is `AP_Accessory_Common.h`. This header file includes the following header files and libraries: `CvValues.h`, `AP_DCC_library`, `RSbus`, `AP_DccButton`, `AP_DccLED` and `AP_DccTimer`. Instead of `AP_Accessory_Common.h`, it is also possible to include individual header files if limited functionality is needed only.
 
 ## DCC decoder objects and classes ##
 The following objects and classes become available to the user sketch:
@@ -56,7 +56,7 @@ The following objects and classes become available to the user sketch:
 - **onBoardLed** ([defined in AP_DccLED.h](src/DccLED/DccLED.md#AP_DccLED)): the onboard LED may be used to inform the user of specific events. To accommodate different LED behaviour, the following classes are defined:
   - [BasicLed](src/DccLED/DccLED.md#BasicLed): to turn on, off or toggle LEDs.
   - [FlashLed](src/DccLED/DccLED.md#FlashLed): allows LEDs to flash slow, fast, or user specified.
-  - [DCCLed](src/DccLED/DccLED.md#DCCLed): the typical class for onboard LEDs.
+  - [DccLed](src/DccLED/DccLED.md#DccLed): the typical class for onboard LEDs.
 
 
 - **Buttons**: the user sketch may need to read the status of (debounced) buttons. Two different classes are provided: the [DccButton](src/DccButton/DccButton.md#DccButton) class for normal buttons and the [ToggleButton](src/DccButton/DccButton.md#ToggleButton) class for toggle buttons. The onboardButton is of class DccButton, but this button should not be used by the user sketch.
