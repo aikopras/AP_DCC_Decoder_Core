@@ -2,18 +2,21 @@
 # The DCC decoder core #
 
 ## Direct links: ##
-- [AP_DCC_Library:](https://github.com/aikopras/AP_DCC_library#AP_DCC_library)
+- [AP_DCC_Library](https://github.com/aikopras/AP_DCC_library#AP_DCC_library):
   dcc.input()
 - [RSBus library:](https://github.com/aikopras/RSbus)
-- [Common Hardware Functions:](src/CommonFunctions/CommonFunctions.md)
+- [Common Hardware Functions](src/CommonFunctions/CommonFunctions.md):
   decoderHardware.init() and decoderHardware.update()
-- [Configuration Variables:](src/CvValues/CvValues.md)
+- [Configuration Variables](src/CvValues/CvValues.md):
   List of CVs, cvValues.init(), cvValues.read() and cvValues.write()
-- [CvProgramming:](src/CommonFunctions/CvProgramming.md) 
+- [CvProgramming](src/CommonFunctions/CvProgramming.md):
    cvProgramming.processMessage(...)
-- [LEDs](src/DccLED/DccLED.md#AP_DccLED)  
-- [Buttons](src/DccButton/DccButton.md#DccButton)
-- [Pin assignments: boards.h](src/boards.h)
+- [LEDs](src/DccLED/DccLED.md#AP_DccLED): Basic_Led, Flash_Led, DCC_Led
+- [Buttons](src/DccButton/DccButton.md#DccButton): DccButton, ToggleButton
+- [Pin assignments](src/boards.h): boards.h
+
+
+
 
 TODO timer
 
