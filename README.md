@@ -5,6 +5,7 @@
 - [AP_DCC_Library](https://github.com/aikopras/AP_DCC_library#AP_DCC_library):
   dcc.input()
 - [RSBus library:](https://github.com/aikopras/RSbus)
+  RSbusConnection
 - [Common Hardware Functions](src/CommonFunctions/CommonFunctions.md):
   decoderHardware.init() and decoderHardware.update()
 - [Configuration Variables](src/CvValues/CvValues.md):
@@ -15,9 +16,6 @@
 - [Buttons](src/DccButton/DccButton.md#DccButton): DccButton, ToggleButton
 - [Timers](src/DccTimer/DccTimer.md#DccTimer): DccTimer
 - [Pin assignments](src/boards.h): boards.h
-
-
-TODO: Details RS-RS_Bus
 
 ## Purpose ##
 
@@ -48,14 +46,18 @@ The following objects and classes become available to the user sketch:
   - **locoCmd** ([class: Loco](https://github.com/aikopras/AP_DCC_library#Loco)): if `dcc.cmdType` returns any of the loco types (such as `MyLocoSpeedCmd` or `MyLocoF0F4Cmd`), additional information is provided by the `locoCmd` object.
   - **cvCmd** ([class: CvAccess](https://github.com/aikopras/AP_DCC_library#CvAccess)): if `dcc.cmdType` returns `MyPomCmd`, the number and value of the received CV can be obtained via the `cvCmd` object.
 
+
 - **CvProgramming** ([class CvProgramming](src/CommonFunctions/CvProgramming.md#CvProgramming)): processes a received PoM or SM command. Reads or modifies the CV that is targetted by this command. If `dcc.cmdType` returns `MyPomCmd` or `SmCmd`, the main sketch should call `cvProgramming.processMessage()` to ensure that the targetted CV is indeed being read or modified.
 
 - **cvValues** ([class CvValues](src/CvValues/CvValues.md#CvValues)): allows the main sketch to `read()` or `write()` individual CV values. To select the matching set of CV default values for this type of decoder, `setup()` of the main sketch should call `cvValues.init()`.
+
+- **[RS-Bus](https://github.com/aikopras/RSbus#RSbus)**: To send feedback messages via the RS-Bus, the user sketch may instantiated one or more RS-Bus objects of class [RSbusConnection](https://github.com/aikopras/RSbus#RSbusConnection). Note that the user sketch does not need to instantiate the RSbusHardware class itself or create RS-Bus objects for PoM feedback, since the decoderHardware object already takes care of that.
 
 - **onBoardLed** ([defined in AP_DccLED.h](src/DccLED/DccLED.md#AP_DccLED)): the onboard LED may be used to inform the user of specific events. To accommodate different LED behaviour, the following classes are defined:
   - [BasicLed](src/DccLED/DccLED.md#BasicLed): to turn on, off or toggle LEDs.
   - [FlashLed](src/DccLED/DccLED.md#FlashLed): allows LEDs to flash slow, fast, or user specified.
   - [DCCLed](src/DccLED/DccLED.md#DCCLed): the typical class for onboard LEDs.
+
 
 - **Buttons**: the user sketch may need to read the status of (debounced) buttons. Two different classes are provided: the [DccButton](src/DccButton/DccButton.md#DccButton) class for normal buttons and the [ToggleButton](src/DccButton/DccButton.md#ToggleButton) class for toggle buttons. The onboardButton is of class DccButton, but this button should not be used by the user sketch.
 
