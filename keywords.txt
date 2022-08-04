@@ -16,6 +16,9 @@ FadeOutLed			KEYWORD1
 DccTimer			KEYWORD1
 runTime				KEYWORD1
 
+relayClass			KEYWORD1
+rState_t			KEYWORD1
+
 #########################################
 # Methods and Functions (KEYWORD2)
 #########################################
@@ -76,6 +79,10 @@ getRuntime			KEYWORD2
 getElapsed			KEYWORD2
 getRemain			KEYWORD2
 
+init		KEYWORD2
+activate	KEYWORD2
+update		KEYWORD2
+
 #########################################
 # Instances (KEYWORD2)
 #########################################
@@ -93,3 +100,7 @@ neverStopFlashing		LITERAL1
 fadeTime			LITERAL1
 fadeSteps			LITERAL1
 pwmFrequency			LITERAL1
+
+POS1				LITERAL1
+POS2				LITERAL1
+UNKNOWN				LITERAL1

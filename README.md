@@ -15,6 +15,7 @@
 - [LEDs](src/DccLED/DccLED.md#AP_DccLED): BasicLed, FlashLed, DCCLed
 - [Buttons](src/DccButton/DccButton.md#DccButton): DccButton, ToggleButton
 - [Timers](src/DccTimer/DccTimer.md#DccTimer): DccTimer
+- [Relays](src/DccRelay/DccRelay.md#DccRelay): DccRelay
 - [Pin assignments](src/boards.h): boards.h
 
 ## Purpose ##
@@ -63,6 +64,8 @@ The following objects and classes become available to the user sketch:
 
 - **Timers**: the [DccTimer](src/DccTimer/DccTimer.md#DccTimer) class allows the user sketch to include (non-blocking) timers based on Arduino's `millis()`.
 
+- **Relays**: the [Relays](src/DccRelay/DccRelay.md#DccRelay) class allows the user sketch to include bi-stable relays. Mono-stable relays are not implemented.
+
 ___
 ## Example ##
 A skeleton that shows the basic usage of the core functions (without RS-Bus feedback) is shown below.  
@@ -83,4 +86,4 @@ void loop() {
   decoderHardware.update();
 }
 ````
-A more elaborate example, which includes feedback via the RS_Bus, is shown [BasicDecoder.md](examples/BasicDecoder/BasicDecoder.md). 
+A more elaborate example, which includes feedback via the RS_Bus, is shown [BasicDecoder.md](examples/BasicDecoder/BasicDecoder.md).
