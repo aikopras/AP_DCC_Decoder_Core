@@ -6,11 +6,11 @@
   dcc.input()
 - [RSBus library:](https://github.com/aikopras/RSbus#RSbus)
   RSbusConnection
-- [Common Hardware Functions](src/CommonFunctions/CommonFunctions.md):
+- [Common Hardware Functions](src/CommonFunctions/CommonFunctions.md#CommonDecHwFunctions):
   decoderHardware.init() and decoderHardware.update()
-- [Configuration Variables](src/CvValues/CvValues.md):
+- [Configuration Variables](src/CvValues/CvValues.md#CvValues):
   List of CVs, cvValues.init(), cvValues.read() and cvValues.write()
-- [CvProgramming](src/CommonFunctions/CvProgramming.md):
+- [CvProgramming](src/CommonFunctions/CvProgramming.md#CvProgramming):
    cvProgramming.processMessage(...)
 - [LEDs](src/DccLED/DccLED.md#AP_DccLED): BasicLed, FlashLed, DCCLed
 - [Buttons](src/DccButton/DccButton.md#DccButton): DccButton, ToggleButton
