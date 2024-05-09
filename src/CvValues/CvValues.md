@@ -82,6 +82,13 @@ FB_S4        = 50;   // 0..8   - Feedback bit if Sensor 4 is active
 Polarization = 51;   // 0..1   - If 0: J&K connected normal / if 1: J&K polarization changed
 ````
 
+#### Configuration Variables for TMC 24 Channel IO decoders ####
+````
+Min_1Samples = 33;   // 0..8   - Number of ON samples before the state is considered stable
+Min_0Samples = 34;   // 0..255 - Delay (in number of samples) before previous occupancy will be released
+Int_Samples  = 35;   // 1..255 - Interval between samples (im ms)
+````
+
 #### Configuration Variables for Switch and Relays-4 decoders ####
 ````
 SendFB       = 33;   // 0..1   - Decoder will send switch feedback messages via the RS-Bus

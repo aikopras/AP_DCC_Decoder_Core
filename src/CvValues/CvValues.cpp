@@ -224,6 +224,17 @@ void CvValues::init(uint8_t decoderType, uint8_t softwareVersion) {
       defaults[Polarization] = 0; // If 0: J&K connected normal, if 1: J&K polarization changed
     break;
     //
+    case TMC24ChannelIODecoder:
+      // To reduce load, we do not sample the input pins continously, but only at a certain interval
+      defaults[Int_Samples] = 10;   // 1..255 (im ms)
+      // How many consecutive ON samples are needed before the result is considered to be stable?
+      // If the sample interval is 10 msec, "3" gives 30 msec delay before a valid 1 signal is send
+      defaults[Min_Samples] = 3;    // 0..8
+      // How many consecutive OFF samples are needed before the result is considered to be stable?
+      // If the sample interval is 10 msec, "150" gives 1,5 second delay before a valid 0 signal is send
+      defaults[Delay_off] = 150;    // 1..255
+    break;
+    //
     case LiftDecoder:
       defaults[StartHoming] = 1;  // If 1: perform a stepper motor homing cycle at program start
       defaults[IR_Detect] = 1;    // If 1: enable the IR sensors to detect if trains block movement
