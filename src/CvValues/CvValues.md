@@ -86,7 +86,9 @@ Polarization = 51;   // 0..1   - If 0: J&K connected normal / if 1: J&K polariza
 ````
 Min_1Samples = 33;   // 0..8   - Number of ON samples before the state is considered stable
 Min_0Samples = 34;   // 0..255 - Delay (in number of samples) before previous occupancy will be released
-Int_Samples  = 35;   // 1..255 - Interval between samples (im ms)
+Int_Samples  = 35;   // 1..255 - Interval between samples (in ms)
+Start_Delay  = 36;   // 1..255 - Startup delay (in number of samples)
+Offset_PoM   = 37;   // 1..99  - Offset for the PoM address. Actual address = Offset_PoM * 100 + myRSAddr
 ````
 
 #### Configuration Variables for Switch and Relays-4 decoders ####

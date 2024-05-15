@@ -233,6 +233,11 @@ void CvValues::init(uint8_t decoderType, uint8_t softwareVersion) {
       // How many consecutive OFF samples are needed before the result is considered to be stable?
       // If the sample interval is 10 msec, "150" gives 1,5 second delay before a valid 0 signal is send
       defaults[Delay_off] = 150;    // 1..255
+      // To avoid transmission of incorrect values during startup, we wait a number of samples
+      // before we send the first RS-Bus message
+      defaults[Start_Delay] = 20;   // 1..255
+      // Offset for the PoM address. The actual address becomes: Offset_PoM * 100 + myRSAddr
+      defaults[Offset_PoM] = 50;   // 1..99
     break;
     //
     case LiftDecoder:
