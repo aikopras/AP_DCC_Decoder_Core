@@ -74,8 +74,7 @@
 // Predefined values for the Decoder Type CV (CV27).
 const uint8_t SwitchDecoder                     = 0b00010000;   // Switch decoder
 const uint8_t SwitchDecoderWithEmergency        = 0b00010001;   // Switch decoder with Emergency board
-const uint8_t Servo2Decoder                     = 0b00010100;   // Decoder for 2 Servo's
-const uint8_t Servo3Decoder                     = 0b00010101;   // Decoder for 3 Servo's
+const uint8_t ServoDecoder                      = 0b00010100;   // Decoder for Servo's
 const uint8_t LiftDecoder                       = 0b00011000;   // Lift Decoder
 const uint8_t Relays4Decoder                    = 0b00100000;   // Relays decoder for 4 relays
 const uint8_t Relays16Decoder                   = 0b00100001;   // Relays decoder for 16 relays

@@ -136,7 +136,7 @@ void CvValues::init(uint8_t decoderType, uint8_t softwareVersion) {
       defaults[Mode] = 0;               // 1..3
     break;
     //
-    case Servo2Decoder:
+    case ServoDecoder:
       // Sending Servo Feedback
       // If 1, decoder sends switch feedback messages via the RS-Bus 
       // Should be 0 if decoder sends ONLY PoM feedback (Address 128)
