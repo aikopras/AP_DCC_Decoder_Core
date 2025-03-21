@@ -6,6 +6,7 @@
 //            2021/12/30 AP Version 1.2
 //            2022/07/13 AP Version 1.3 Safety decoder CV naming changed
 //            2022/08/02 AP Version 1.4 Restructure of the library
+//            2025/02/15 AP Version 1.5 Servo specific CVs added
 //
 // Purpose:   C++ file that implements the methods to read and modify CV values stored in EEPROM,  
 //            as well as the default values for all CVs.
@@ -41,6 +42,11 @@ void CvValues::init(uint8_t decoderType, uint8_t softwareVersion) {
   // Make all values of the defaults array 0, except the first
   for (uint8_t i = 1; i <= max_cvs; i++) defaults[i] = 0;
   defaults[0] = 0b01010101;
+  //
+  // ********************************************************
+  // The next default settings are the same for all decoders. 
+  // These settings are for the CVs 1..32, except the CVs 11..18 (which are specific for the GBM)
+  // Also note that CV2 is not used, and CVs 3..6 are primarily usefull for switch decoders.
   //
   // Decoder type and Software version and Vendor IDs
   defaults[DecType] = decoderType;      // See const definitions from CvValues.h
@@ -87,7 +93,9 @@ void CvValues::init(uint8_t decoderType, uint8_t softwareVersion) {
   defaults[T_on_F3] = 15;               // 0..255 
   defaults[T_on_F4] = 15;               // 0..255 
   //
-  // Settings that are specific per decoder type
+  // ***********************************************
+  // The next default settings are decoder specific. 
+  // These settings are for the CVs 33..max_cvs (64)
   switch (decoderType) {
     //
     case SwitchDecoder:
@@ -128,16 +136,16 @@ void CvValues::init(uint8_t decoderType, uint8_t softwareVersion) {
       defaults[Mode] = 0;               // 1..3
     break;
     //
-    case ServoDecoder:
+    case Servo2Decoder:
       // Sending Servo Feedback
       // If 1, decoder sends switch feedback messages via the RS-Bus 
       // Should be 0 if decoder sends ONLY PoM feedback (Address 128)
-      defaults[SendFB] = 1;             // 0..1 
+      defaults[SendFB] = 1;             // 0..1
       // Activation
-      // Activate coil, even if a switch "should already be" in the desired position
+      // Move servo, even if a servo "should already be" in the desired position
       // Some train controller software expect a feedback message after each switch command.
       // In that case AlwaysAct must be 1.  
-      defaults[AlwaysAct] = 1;          // 0..1 
+      defaults[AlwaysAct] = 1;          // 0..1
       // Multiple switches should not share the same feedback nibble. Therefore each switch
       // should have its own nibble, thus we need to skip decoder addresses
       // By setting SkipUneven, only Decoder Addresses 2, 4, 6 .... 1024 will be used 

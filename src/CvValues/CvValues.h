@@ -7,6 +7,7 @@
 //            2022/07/13 AP Version 1.3 Safety decoder CV naming changed
 //            2022/08/02 AP Version 1.4 Restructure of the library
 //            2024/03/04 AP Version 1.5 TMC IO24 decoder added
+//            2025/03/21 AP Version 1.6 Decoder for 2 Servos added
 //
 // Purpose:   Header file that defines the methods to read and modify CV values stored in EEPROM,
 //            as well as the default values for all
@@ -73,7 +74,8 @@
 // Predefined values for the Decoder Type CV (CV27).
 const uint8_t SwitchDecoder                     = 0b00010000;   // Switch decoder
 const uint8_t SwitchDecoderWithEmergency        = 0b00010001;   // Switch decoder with Emergency board
-const uint8_t ServoDecoder                      = 0b00010100;   // Servo Decoder
+const uint8_t Servo2Decoder                     = 0b00010100;   // Decoder for 2 Servo's
+const uint8_t Servo3Decoder                     = 0b00010101;   // Decoder for 3 Servo's
 const uint8_t LiftDecoder                       = 0b00011000;   // Lift Decoder
 const uint8_t Relays4Decoder                    = 0b00100000;   // Relays decoder for 4 relays
 const uint8_t Relays16Decoder                   = 0b00100001;   // Relays decoder for 16 relays
@@ -89,7 +91,7 @@ const uint8_t TMC24ChannelIODecoder             = 0b11000001;   // 24 Channel IO
 //*****************************************************************************************************
 const uint8_t max_cvs = 64;        // Maximum number of CVs
 
-// CV Names - Generic CVs implemented by all decoders
+// CV Names - Generic CVs implemented by multiple decoders
 const uint8_t myAddrL      = 1;    // 0..63 / 0..255 - Decoder Address low. First address = 1.
 const uint8_t T_on_F1      = 3;    // 0..255 - Time on F1 (in 20ms steps). 0 = continuous activation
 const uint8_t T_on_F2      = 4;    // 0..255 - Time on F2 (in 20ms steps). 0 = continuous activation
@@ -121,6 +123,8 @@ const uint8_t Config       = 29;   // ...    - Accessory Decoder configuration
 const uint8_t VID_2        = 30;   // 0x0D   - Second Vendor ID (Used by my PoM software to detect these are my decoders)
 const uint8_t ParityErrors = 31;   // 0..255 - RS-bus Signal Quality: number of parity errors
 const uint8_t PulseErrors  = 32;   // 0..255 - RS-bus Signal Quality: number of pulse count errors
+const uint8_t SendFB       = 33;   // 0..1   - Decoder will send switch/servo feedback messages via the RS-Bus
+const uint8_t AlwaysAct    = 34;   // 0..1   - If set, decoder will activate coil / relays / servo for each DCC command received
 
 // CV Names - Specific for a Track Occupancy Decoder
 const uint8_t Min_Samples  = 33;   // 0..8   - Number of ON samples before the state is considered stable
@@ -151,8 +155,7 @@ const uint8_t Start_Delay  = 36;   // 1..255 - Startup delay, before transmissio
 const uint8_t Offset_PoM   = 37;   // 1..99  - Offset for the PoM address. Actual address = Offset_PoM * 100 + myRSAddr
 
 // CV Names - Specific for Switch and Relays-4  Decoders
-const uint8_t SendFB       = 33;   // 0..1   - Decoder will send switch feedback messages via the RS-Bus
-const uint8_t AlwaysAct    = 34;   // 0..1   - If set, decoder will activate coil / relays for each DCC command received
+// These decoders implement the Generic CVs only
 
 // CV Names - Specific for a Relays-16 Decoder
 const uint8_t Ract         = 33;   // 0..1   - If relays switches with - (=0) or with + (=1)
@@ -162,18 +165,19 @@ const uint8_t RInter       = 36;   // Relays decoder, round-robin interval (in s
 const uint8_t Mode         = 37;   // 1..3   - Relais decoder mode
 
 // CV Names - Specific for a Safety Decoder
-const uint8_t SendButtonFB = 33;  // 0..1   - Decoder sends feedback via the RS-Bus if the emergency button is pushed
-const uint8_t P_Emergency  = 34;  // 1/4    - Which Pin on the X8 connector is for emergency stop. Possible values: 1 .. 4
-const uint8_t T_Watchdog   = 35;  // Number of seconds watchdog relay will remain active
-const uint8_t T_Emergency  = 36;  // Time after an RS-emergency button push for PC to stop all trains
-const uint8_t T_CheckMove  = 37;  // Interval in which we check if PC stopped all trains
-const uint8_t T_RS_Push1   = 38;  // Time RS-bus stays ON after a PUSH button is pushed
-const uint8_t T_RS_Push2   = 39;  //
-const uint8_t T_RS_Push3   = 40;  //
-const uint8_t T_RS_Push4   = 41;  //
+const uint8_t SendButtonFB = 33;   // 0..1   - Decoder sends feedback via the RS-Bus if the emergency button is pushed
+const uint8_t P_Emergency  = 34;   // 1/4    - Which Pin on the X8 connector is for emergency stop. Possible values: 1 .. 4
+const uint8_t T_Watchdog   = 35;   // Number of seconds watchdog relay will remain active
+const uint8_t T_Emergency  = 36;   // Time after an RS-emergency button push for PC to stop all trains
+const uint8_t T_CheckMove  = 37;   // Interval in which we check if PC stopped all trains
+const uint8_t T_RS_Push1   = 38;   // Time RS-bus stays ON after a PUSH button is pushed
+const uint8_t T_RS_Push2   = 39;   //
+const uint8_t T_RS_Push3   = 40;   //
+const uint8_t T_RS_Push4   = 41;   //
 
 // CV Names - Specific for a Servo Decoder
-const uint8_t LastState    = 33;   // 0..1  - Save last servo position
+// These decoders implement the Generic CVs, as well as may servo specific CVs. These servo specific CVs
+// start numbering from CV65, and are declared and defined as part of the servo decoder software itself.
 
 // CV Names - Specific for a LiftDecoder
 const uint8_t StartHoming  = 33;  // 0..1   - During initialisation decoder starts with a homing cycle
