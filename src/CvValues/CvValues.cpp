@@ -6,7 +6,7 @@
 //            2021/12/30 AP Version 1.2
 //            2022/07/13 AP Version 1.3 Safety decoder CV naming changed
 //            2022/08/02 AP Version 1.4 Restructure of the library
-//            2025/02/15 AP Version 1.5 Servo specific CVs added
+//            2025/03/21 AP Version 1.6 Servo decoder added. EEPROM read / write changed into uint16_t
 //
 // Purpose:   C++ file that implements the methods to read and modify CV values stored in EEPROM,  
 //            as well as the default values for all CVs.
@@ -95,7 +95,7 @@ void CvValues::init(uint8_t decoderType, uint8_t softwareVersion) {
   //
   // ***********************************************
   // The next default settings are decoder specific. 
-  // These settings are for the CVs 33..max_cvs (64)
+  // These settings are for the CVs 33..max_cvs (63)
   switch (decoderType) {
     //
     case SwitchDecoder:
@@ -150,6 +150,7 @@ void CvValues::init(uint8_t decoderType, uint8_t softwareVersion) {
       // should have its own nibble, thus we need to skip decoder addresses
       // By setting SkipUneven, only Decoder Addresses 2, 4, 6 .... 1024 will be used 
       defaults[SkipUnEven] = 1;         // 0..1
+      // Note: Servo specific CVs are implemented by the servo decoder itself
       //
     break;
     //
@@ -307,11 +308,11 @@ void CvValues::setDefaults(void) {
 //*****************************************************************************************************
 // Read and Write
 //*****************************************************************************************************
-uint8_t CvValues::read(uint8_t number){
+uint8_t CvValues::read(uint16_t number){
   return EEPROM.read(number);
 }
 
-void CvValues::write(uint8_t number, uint8_t value){
+void CvValues::write(uint16_t number, uint8_t value){
   // We do not do any sanity check regarding the value that is entered!
   EEPROM.update(number, value) ;
 }

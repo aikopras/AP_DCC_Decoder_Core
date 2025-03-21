@@ -7,7 +7,7 @@
 //            2022/07/13 AP Version 1.3 Safety decoder CV naming changed
 //            2022/08/02 AP Version 1.4 Restructure of the library
 //            2024/03/04 AP Version 1.5 TMC IO24 decoder added
-//            2025/03/21 AP Version 1.6 Decoder for 2 Servos added
+//            2025/03/21 AP Version 1.6 Servo decoder added. EEPROM read / write changed into uint16_t
 //
 // Purpose:   Header file that defines the methods to read and modify CV values stored in EEPROM,
 //            as well as the default values for all
@@ -88,7 +88,7 @@ const uint8_t TMC24ChannelIODecoder             = 0b11000001;   // 24 Channel IO
 
 
 //*****************************************************************************************************
-const uint8_t max_cvs = 64;        // Maximum number of CVs
+const uint8_t max_cvs = 63;        // Maximum number of Generic CVs (that are initialised by setDefaults)
 
 // CV Names - Generic CVs implemented by multiple decoders
 const uint8_t myAddrL      = 1;    // 0..63 / 0..255 - Decoder Address low. First address = 1.
@@ -122,6 +122,8 @@ const uint8_t Config       = 29;   // ...    - Accessory Decoder configuration
 const uint8_t VID_2        = 30;   // 0x0D   - Second Vendor ID (Used by my PoM software to detect these are my decoders)
 const uint8_t ParityErrors = 31;   // 0..255 - RS-bus Signal Quality: number of parity errors
 const uint8_t PulseErrors  = 32;   // 0..255 - RS-bus Signal Quality: number of pulse count errors
+
+// CV Names - Specific for Switch, Relays-4 and Servo Decoders
 const uint8_t SendFB       = 33;   // 0..1   - Decoder will send switch/servo feedback messages via the RS-Bus
 const uint8_t AlwaysAct    = 34;   // 0..1   - If set, decoder will activate coil / relays / servo for each DCC command received
 
@@ -153,9 +155,6 @@ const uint8_t Int_Samples  = 35;   // 1..255 - Interval between samples (in ms)
 const uint8_t Start_Delay  = 36;   // 1..255 - Startup delay, before transmission of the first RS-Bus message (in samples)
 const uint8_t Offset_PoM   = 37;   // 1..99  - Offset for the PoM address. Actual address = Offset_PoM * 100 + myRSAddr
 
-// CV Names - Specific for Switch and Relays-4  Decoders
-// These decoders implement the Generic CVs only
-
 // CV Names - Specific for a Relays-16 Decoder
 const uint8_t Ract         = 33;   // 0..1   - If relays switches with - (=0) or with + (=1)
 const uint8_t RRR1         = 34;   // Relays used for round-robin, relays 1-8  (Port C)
@@ -174,15 +173,15 @@ const uint8_t T_RS_Push2   = 39;   //
 const uint8_t T_RS_Push3   = 40;   //
 const uint8_t T_RS_Push4   = 41;   //
 
-// CV Names - Specific for a Servo Decoder
-// These decoders implement the Generic CVs, as well as may servo specific CVs. These servo specific CVs
-// start numbering from CV65, and are declared and defined as part of the servo decoder software itself.
-
 // CV Names - Specific for a LiftDecoder
 const uint8_t StartHoming  = 33;  // 0..1   - During initialisation decoder starts with a homing cycle
 const uint8_t IR_Detect    = 34;  // 0..1   - Disable / Enable the IR detectors to block lift movement
 const uint8_t LCD_Display  = 35;  // 0..1   - Disable / Enable the LCD display
 const uint8_t Serial_Line  = 36;  // 0,1,2  - Disable / Enable the Serial interface. Enable for GRBL config changes
+
+// CV Names - Specific for a Servo Decoder
+// These decoders implement the Generic CVs, as well as may servo specific CVs. These servo specific CVs
+// start numbering from CV64, and are declared and defined as part of the servo decoder software itself.
 
 //*****************************************************************************************************
 class CvValues {
@@ -198,8 +197,8 @@ class CvValues {
 
 
     // Generic CV functions
-    uint8_t read(uint8_t number);
-    void write(uint8_t number, uint8_t value);
+    uint8_t read(uint16_t number);                 // Can read every byte in EEPROM
+    void write(uint16_t number, uint8_t value);    // Can write every byte in EEPROM
 
 
     unsigned int storedAddress(void);              // From CV1 and CV9 we get the decoder address

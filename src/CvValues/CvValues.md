@@ -7,10 +7,10 @@ The CvValues Class allows to read, modify and initialise the  Configuration Vari
 The main sketch may read and modify the various CV values, and retrieve the decoders address.
 
 #### uint8_t read(uint8_t number) ####
-Returns the value of the specified CV number. See below for the list of the defined CV numbers.
+Returns the value of the specified CV number. See below for the list of the defined CV numbers. Read is not limited to the CVs in the list below, but may be used to read all EEPROM bytes.
 
 #### void write(uint8_t number, uint8_t value) ####
-Sets the specified CV number with the specified value. See below for the list of the defined CV numbers and the acceptable values. Note that for most CVs no check is performed whether the provided value falls within the acceptable range.
+Sets the specified CV number with the specified value. See below for the list of the defined CV numbers and the acceptable values. For a limited number of CVs a check is performed whether the provided value falls within the acceptable range.
 
 #### unsigned int storedAddress(void) ####
 Returns the decoder address, and is derived from CV1 and CV9.
@@ -22,7 +22,7 @@ ___
 ## Configuration Variables ##
 
 The following Configuration Variables are defined. The variables 1..32 are common for all decoders, the remaining variables are decoder specific.
-The default values for the various CVs can be found in [CvValues.cpp](CvValues.cpp).
+The default values for the various CVs can be found in [CvValues.cpp](CvValues.cpp). Some of the newer decoders, such as the servo decoder, add additional CVs as part of the decoder specific code.
 
 #### Configuration Variables for all decoders ####
 ````
@@ -91,16 +91,10 @@ Start_Delay  = 36;   // 1..255 - Startup delay (in number of samples)
 Offset_PoM   = 37;   // 1..99  - Offset for the PoM address. Actual address = Offset_PoM * 100 + myRSAddr
 ````
 
-#### Configuration Variables for Switch and Relays-4 decoders ####
+#### Configuration Variables for Switch, Relays-4 and Servo decoders ####
 ````
 SendFB       = 33;   // 0..1   - Decoder will send switch feedback messages via the RS-Bus
 AlwaysAct    = 34;   // 0..1   - If set, decoder will activate coil / relays for each DCC command received
-````
-
-#### Configuration Variables for Servo decoders ####
-***Incomplete. Will be extended***
-````
-LastState    = 33;   // 0..1  - Save last servo position
 ````
 
 #### Configuration Variables for Relays-16 decoders ####
