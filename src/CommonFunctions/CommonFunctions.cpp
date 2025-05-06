@@ -135,7 +135,6 @@ void ProgButton::addressProgramming() {
           // We store the decoder address, even if we use output addressing!
           if (accCmd.decoderAddress < 128) {
             cvValues.write(myRSAddr, accCmd.decoderAddress + 1);
-
           }
           else cvValues.write(myRSAddr, 0);         
         }
@@ -211,8 +210,10 @@ void CvProgramming::processMessage(Dcc::CmdType_t cmdType) {
   uint8_t CurrentEEPROMValue = cvValues.read(RecCvNumber);
   bool SM  = (cmdType == Dcc::SmCmd);
   bool PoM = (cmdType == Dcc::MyPomCmd);
+  // 2025/05/06 AP: Modified, to allow using the entire EEPROM size
   // Ensure we stay within the range supported by this decoder
-  if (RecCvNumber < max_cvs) {
+  // if (RecCvNumber < max_cvs) {
+  if (RecCvNumber <  EEPROM_SIZE) {
     switch(cvCmd.operation) {
       case CvAccess::verifyByte :
         if (SM) {
