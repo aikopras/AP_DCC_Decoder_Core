@@ -8,6 +8,7 @@
 //            2022/08/02 AP Version 1.4 Restructure of the library
 //            2024/03/04 AP Version 1.5 TMC IO24 decoder added
 //            2025/03/21 AP Version 1.6 Servo decoder added. EEPROM read / write changed into uint16_t
+//            2025/10/04 AP Version 1.7 Servo-3 decoder added
 //
 // Purpose:   Header file that defines the methods to read and modify CV values stored in EEPROM,
 //            as well as the default values for all
@@ -74,7 +75,8 @@
 // Predefined values for the Decoder Type CV (CV27).
 const uint8_t SwitchDecoder                     = 0b00010000;   // Switch decoder
 const uint8_t SwitchDecoderWithEmergency        = 0b00010001;   // Switch decoder with Emergency board
-const uint8_t ServoDecoder                      = 0b00010100;   // Decoder for Servo's
+const uint8_t ServoDecoder                      = 0b00010100;   // Decoder for 2 Servo's
+const uint8_t Servo3Decoder                     = 0b00010101;   // Decoder for 3 Servo's
 const uint8_t LiftDecoder                       = 0b00011000;   // Lift Decoder
 const uint8_t Relays4Decoder                    = 0b00100000;   // Relays decoder for 4 relays
 const uint8_t Relays16Decoder                   = 0b00100001;   // Relays decoder for 16 relays
