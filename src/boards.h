@@ -7,6 +7,8 @@
 //
 // History:   2021/08/01 AP Version 1.1
 //            2021/12/30 AP Version 1.2
+//            2024/05/09 AP Version 1.3: TMC board added
+//            2025/10/10 AP Version 1.4: Servo 2.2 added
 //
 // The code is designed to run on traditional Arduino boards, such as the Nano, Uno and Mega,
 // as well as MiniCore, MightyCore, MegaCore, MegaCoreX and DxCore boards. It has been tested with
@@ -93,7 +95,18 @@ const uint8_t ackPin = PIN_PD1;       // PIN_PD1
 const uint8_t buttonPin = PIN_PD2;    // PIN_PD2
 const uint8_t ledPin = PIN_PA7;       // PIN_PA7 / on-board LED
 
-#elif defined(DA_48_PINS)
+#elif defined(__AVR_AVR32DA48__)
+// This is the Servo 2.2 decoder board, or the TMC wissel decoder board.
+// It uses the Dx board layout. The onboard USB connector is Serial1
+const uint8_t rsBusUsart = 0;         // PIN_PA4 / Alternative Pin
+const bool swapUsartPin = true;       // Use the alternative USART pin
+const uint8_t rsBusRX = PIN_PA0;      // PIN_PA0
+const uint8_t dccPin = PIN_PA1;       // PIN_PA1
+const uint8_t ackPin = PIN_PA2;       // PIN_PA2
+const uint8_t buttonPin = PIN_PA3;    // PIN_PA3
+const uint8_t ledPin = PIN_PB0;       // PIN_PB0 / on-board LED
+
+#elif defined(__AVR_AVR128DA48__)
 // This is the AVR128DA48 Curiosity Nano, using the Dx board layout
 // The onboard USB connector is Serial1
 const uint8_t rsBusUsart = 0;         // PIN_PA4 / Alternative Pin
