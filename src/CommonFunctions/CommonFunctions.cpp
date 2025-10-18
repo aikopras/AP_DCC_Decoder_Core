@@ -213,7 +213,9 @@ void CvProgramming::processMessage(Dcc::CmdType_t cmdType) {
   // 2025/05/06 AP: Modified, to allow using the entire EEPROM size
   // Ensure we stay within the range supported by this decoder
   // if (RecCvNumber < max_cvs) {
-  if (RecCvNumber <  EEPROM_SIZE) {
+  // if (RecCvNumber <  EEPROM_SIZE) {
+  // 2025/10/18 AP: Modified, since EEPROM_SIZE is not always defined.
+  if (RecCvNumber <= E2END) {
     switch(cvCmd.operation) {
       case CvAccess::verifyByte :
         if (SM) {
