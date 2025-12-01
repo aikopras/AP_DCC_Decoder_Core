@@ -7,6 +7,7 @@
 //            2022/07/13 AP Version 1.3 Safety decoder CV naming changed
 //            2022/08/02 AP Version 1.4 Restructure of the library
 //            2025/03/21 AP Version 1.6 Servo decoder added. EEPROM read / write changed into uint16_t
+//            2025/12/01 AP Version 1.8 Servo-3 and Servo-6 decoders added
 //
 // Purpose:   C++ file that implements the methods to read and modify CV values stored in EEPROM,  
 //            as well as the default values for all CVs.
@@ -137,6 +138,8 @@ void CvValues::init(uint8_t decoderType, uint8_t softwareVersion) {
     break;
     //
     case ServoDecoder:
+    case Servo3Decoder:
+    case Servo6Decoder:
       // Sending Servo Feedback
       // If 1, decoder sends switch feedback messages via the RS-Bus 
       // Should be 0 if decoder sends ONLY PoM feedback (Address 128)
