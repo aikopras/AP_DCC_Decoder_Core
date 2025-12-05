@@ -153,6 +153,12 @@ void CvValues::init(uint8_t decoderType, uint8_t softwareVersion) {
       // should have its own nibble, thus we need to skip decoder addresses
       // By setting SkipUneven, only Decoder Addresses 2, 4, 6 .... 1024 will be used 
       defaults[SkipUnEven] = 1;         // 0..1
+      // Some of the servo decoders support special functions that are needed for my layout
+      // If SwitchType = 0, the decoder acts as a normal switch / servo decoder
+      // If SwitchType = 1, the third servo is used for Spurkranzlenkung by Weinert's DKW
+      // If SwitchType = 2, four servos are coupled, to avoid illegal configurations in
+      // conjunction with double crossovers (Hosentrager)
+      defaults[SwitchType] = 0;         // 0, 1 or 2
       // Note: Servo specific CVs are implemented by the servo decoder itself
       //
     break;

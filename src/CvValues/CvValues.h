@@ -10,6 +10,7 @@
 //            2025/03/21 AP Version 1.6 Servo decoder added. EEPROM read / write changed into uint16_t
 //            2025/10/04 AP Version 1.7 Servo-3 decoder added
 //            2025/12/01 AP Version 1.8 Servo-6 and TMC16ChannelSwitchDecoder decoders added
+//            2025/12/05 AP Version 1.6 SwitchType added for switches / servos
 //
 // Purpose:   Header file that defines the methods to read and modify CV values stored in EEPROM,
 //            as well as the default values for all
@@ -131,6 +132,7 @@ const uint8_t PulseErrors  = 32;   // 0..255 - RS-bus Signal Quality: number of 
 // CV Names - Specific for Switch, Relays-4 and Servo Decoders
 const uint8_t SendFB       = 33;   // 0..1   - Decoder will send switch/servo feedback messages via the RS-Bus
 const uint8_t AlwaysAct    = 34;   // 0..1   - If set, decoder will activate coil / relays / servo for each DCC command received
+const uint8_t SwitchType   = 35;   // 0..2   - 0: normal, 1: Weinert DKW with Spurkranzlenkung, 2: Double crossover
 
 // CV Names - Specific for a Track Occupancy Decoder
 const uint8_t Min_Samples  = 33;   // 0..8   - Number of ON samples before the state is considered stable
