@@ -8,6 +8,7 @@
 //            2022/08/02 AP Version 1.4 Restructure of the library
 //            2025/03/21 AP Version 1.6 Servo decoder added. EEPROM read / write changed into uint16_t
 //            2025/12/01 AP Version 1.8 Servo-3 and Servo-6 decoders added
+//            2025/12/07 AP Version 1.9 SwitchCount and SwitchType added for switches / servos
 //
 // Purpose:   C++ file that implements the methods to read and modify CV values stored in EEPROM,  
 //            as well as the default values for all CVs.
@@ -101,7 +102,10 @@ void CvValues::init(uint8_t decoderType, uint8_t softwareVersion) {
     //
     case SwitchDecoder:
     case SwitchDecoderWithEmergency:
-      // Sending switch Feedback
+    case ServoDecoder:
+    case Servo3Decoder:
+    case Servo6Decoder:
+     // Sending switch Feedback
       // If 1, decoder sends switch feedback messages via the RS-Bus 
       // Should be 0 if decoder sends ONLY PoM feedback (Address 128)
       defaults[SendFB] = 1;             // 0..1 
@@ -114,7 +118,18 @@ void CvValues::init(uint8_t decoderType, uint8_t softwareVersion) {
       // should have its own nibble, thus we need to skip decoder addresses
       // By setting SkipUneven, only Decoder Addresses 2, 4, 6 .... 1024 will be used 
       defaults[SkipUnEven] = 1;         // 0..1
-      //
+      // If we have a hardware that supports many switches / servos, but we connect only a few,
+      // we potentially waste DCC (and other) addresses. To reduce such waste, this CV allows
+      // to specify the real number of switches / servos that are being used. If the CV value
+      // is 0 or 255, the code should use the maximum as supported by the hardware
+      defaults[SwitchCount] = 0;
+      // Some of the decoders support special functions that may be needed in specific cases.
+      // If SwitchType = 0, the decoder acts as a normal switch / servo decoder
+      // If SwitchType = 1, the third switch / servo is used for Spurkranzlenkung by Weinert's DKW
+      // If SwitchType = 2, four switches / servos are coupled, to avoid illegal configurations in
+      // conjunction with double crossovers (Hosentrager)
+      defaults[SwitchType] = 0;         // 0, 1 or 2
+      // Note: Servo specific CVs are implemented by the servo decoder itself
     break;
     //
     case Relays4Decoder:
@@ -135,32 +150,6 @@ void CvValues::init(uint8_t decoderType, uint8_t softwareVersion) {
       // 2: multiple relays may be activated at the same time
       // 3: Relays are activated in a round-robin fashion
       defaults[Mode] = 0;               // 1..3
-    break;
-    //
-    case ServoDecoder:
-    case Servo3Decoder:
-    case Servo6Decoder:
-      // Sending Servo Feedback
-      // If 1, decoder sends switch feedback messages via the RS-Bus 
-      // Should be 0 if decoder sends ONLY PoM feedback (Address 128)
-      defaults[SendFB] = 1;             // 0..1
-      // Activation
-      // Move servo, even if a servo "should already be" in the desired position
-      // Some train controller software expect a feedback message after each switch command.
-      // In that case AlwaysAct must be 1.  
-      defaults[AlwaysAct] = 1;          // 0..1
-      // Multiple switches should not share the same feedback nibble. Therefore each switch
-      // should have its own nibble, thus we need to skip decoder addresses
-      // By setting SkipUneven, only Decoder Addresses 2, 4, 6 .... 1024 will be used 
-      defaults[SkipUnEven] = 1;         // 0..1
-      // Some of the servo decoders support special functions that are needed for my layout
-      // If SwitchType = 0, the decoder acts as a normal switch / servo decoder
-      // If SwitchType = 1, the third servo is used for Spurkranzlenkung by Weinert's DKW
-      // If SwitchType = 2, four servos are coupled, to avoid illegal configurations in
-      // conjunction with double crossovers (Hosentrager)
-      defaults[SwitchType] = 0;         // 0, 1 or 2
-      // Note: Servo specific CVs are implemented by the servo decoder itself
-      //
     break;
     //
     case SafetyDecoder:
