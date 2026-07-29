@@ -5,10 +5,12 @@
 // History:   2021/06/14 AP Version 1.0
 //            2021/12/30 AP Version 1.2
 //            2022/08/02 AP Version 1.3 Restructure of the library
-// Purpose:   Header file for accessory decoders that use the RS-Bus for feedback.
+//            2026/07/29 AP Version 1.4 Allow library usage without RS-Bus (Button and LED)
+// Purpose:   Header file for accessory decoders that may use the RS-Bus for feedback.
 //            PoM feedback messages use instead of RailCom the RS-Bus with address 128.
 //
-// This library takes care of many of the common accesory decoder functions, such as:
+// This library takes care of many of the common accessory decoder functions, such as:
+// - determining which Arduino pins and USART are used,
 // - accessing the CV values,
 // - instantiating the onboard LED and Button,
 // - filling the EEPROM with initial values,
@@ -17,11 +19,11 @@
 // - reacting on general CV operations (such as reset decoder, find decoder, reboot decoder),
 // - initialisation and the initial assignment of the decoder address.
 //
-// Main => AP_Accessory_Common +-> AP_CvValues        (To access the CV EEPROM values)
+// Main => AP_DCC_Decoder_Core +-> AP_CvValues        (To access the CV EEPROM values)
 //                             +-> AP_DCC_Lib         (Needed to detach the ISR)
 //                             +-> RSbus_Lib          (Needed to detach the ISR)
-//                             +-> AP_LED_Lib         (the LED object is instatiated here)
-//                             +-> AP_Button_Lib      (the Button object is instatiated here)
+//                             +-> AP_LED_Lib         (the LED object is instantiated here)
+//                             +-> AP_Button_Lib      (the Button object is instantiated here)
 //
 //*****************************************************************************************************
 #pragma once
@@ -50,23 +52,35 @@ class CvProgramming {
 
   private:
     void pom_feedback(void);                      // Sends a PoM feedback message
-    bool LedShouldFlash;                          // Local copy of CV23 (search)
+    bool LedShouldFlash = false;                  // Local copy of CV23 (search). Default OFF
 };
 
 
 class CommonDecHwFunctions {
   public:
-    void init(void);                              // Should be called from init() in the main sketch.
+    CommonDecHwFunctions(void);                   // Constructor. Fills the attributes below with the boards.h values
+    void init(void);                              // Should be called from setup() in the main sketch.
     void update(void);                            // Should be called from main as often as possible.
+
+    // Pin attributes. The constructor fills these with the boards.h values; the main sketch
+    // may overwrite any of them (before calling init()) to match its own hardware.
+    // Set a pin to PIN_UNDEFINED to indicate that function should not be present.
+    uint8_t dccPin;                               // Pin for the DCC input
+    uint8_t ackPin;                               // DCC Service Mode Acknowledgement
+    uint8_t ledPin;                               // Decoder LED (for uninitialised and others)
+    uint8_t buttonPin;                            // Button to set the decoder address
+    uint8_t rsBusRX;                              // RSBus receive pin
+    uint8_t rsBusUsart;                           // RSBus transmit USART number
+    bool swapUsartPin;                            // For DxCore: alternative USART pin?
     unsigned long TLast;                          // Some elements of update() are called every 20ms
 };
 
 
 //*****************************************************************************************************
-// Objects defined the DCC_Library, RS-Bus library as well as AP_Accessory_Common.cpp
+// Objects defined in the DCC_Library, RS-Bus library as well as CommonFunctions.cpp
 //*****************************************************************************************************
 // A number of hardware related objects are instantiated in their libraries, and must be made known to
-// the compiler and linker by 'repeating" their instantiation again, preceeded by the extern keyword
+// the compiler and linker by 'repeating' their instantiation again, preceded by the extern keyword
 // Since the main sketch includes this header file, main does not need to repeat these again.
 
 // The following objects are used for decoding received DCC messages. The main object is dcc,
@@ -78,11 +92,11 @@ extern Loco locoCmd;                         // Instantiated in AP_DCC_library.c
 
 // The following objects are used for storing and retrieving CV values from EEPROM,
 // and respond to DCC CV-access commands
-extern CvValues cvValues;                    // Instantiated in main sketch
-extern CvProgramming cvProgramming;          // Instantiated in AP_Accessory_Common.cpp
-extern CvAccess cvCmd;                       // Instantiated in AP_DCC_library.cpp
+extern CvValues cvValues;                    // Instantiated in CvValues.cpp
+extern CvProgramming cvProgramming;          // Instantiated in CommonFunctions.cpp
+extern CvAccess cvCmd;                       // Instantiated in CvValues.cpp
 
 // The following objects provide access to the onboard LED, as well as the
 // onboard programming button
-extern DccLed onBoardLed;                    // Instantiated in AP_DCC_Decoder_Core.cpp
-extern CommonDecHwFunctions decoderHardware; // Instantiated in AP_DCC_Decoder_Core.cpp
+extern DccLed onBoardLed;                    // Instantiated in CommonFunctions.cpp
+extern CommonDecHwFunctions decoderHardware; // Instantiated in CommonFunctions.cpp

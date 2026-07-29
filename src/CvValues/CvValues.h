@@ -11,6 +11,7 @@
 //            2025/10/04 AP Version 1.7 Servo-3 decoder added
 //            2025/12/01 AP Version 1.8 Servo-6 and TMC16ChannelSwitchDecoder decoders added
 //            2025/12/07 AP Version 1.9 SwitchCount and SwitchType added for switches / servos
+//            2026/07/29 AP Version 2.0 Comment added that 0b1110xxxx is reserved for user defined types
 //
 // Purpose:   Header file that defines the methods to read and modify CV values stored in EEPROM,
 //            as well as the default values for all
@@ -75,6 +76,12 @@
 //
 //*****************************************************************************************************
 // Predefined values for the Decoder Type CV (CV27).
+// Decoder types 0b1110xxxx (0xE0..0xEF) will be reserved for decoder types that are
+// defined by the user sketch itself. Values in this range will never be used by this
+// library, so a sketch may use them without risking a clash with a future release.
+// Note that 0x00 and 0xFF should not be used: 0x00 is what an accidentally cleared
+// CV27 returns, and 0xFF what an erased EEPROM returns.
+
 const uint8_t SwitchDecoder                     = 0b00010000;   // Switch decoder
 const uint8_t SwitchDecoderWithEmergency        = 0b00010001;   // Switch decoder with Emergency board
 const uint8_t ServoDecoder                      = 0b00010100;   // Decoder for 2 Servo's

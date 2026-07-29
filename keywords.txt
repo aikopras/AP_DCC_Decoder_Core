@@ -1,5 +1,5 @@
 #########################################
-# Syntax Coloring for AP_DCC_Decoder_Core 
+# Syntax Coloring for AP_DCC_Decoder_Core
 #########################################
 
 #########################################
@@ -10,7 +10,7 @@ ToggleButton			KEYWORD1
 
 BasicLed			KEYWORD1
 FlashLed			KEYWORD1
-DCCLed				KEYWORD1
+DccLed				KEYWORD1
 FadeOutLed			KEYWORD1
 
 DccTimer			KEYWORD1
@@ -87,6 +87,13 @@ update		KEYWORD2
 # Instances (KEYWORD2)
 #########################################
 TLast				KEYWORD2
+dccPin					KEYWORD2
+ackPin					KEYWORD2
+ledPin					KEYWORD2
+buttonPin			KEYWORD2
+rsBusRX					KEYWORD2
+rsBusUsart			KEYWORD2
+swapUsartPin		KEYWORD2
 
 #########################################
 # Constants (LITERAL1)
@@ -103,4 +110,5 @@ pwmFrequency			LITERAL1
 
 POS1				LITERAL1
 POS2				LITERAL1
+PIN_UNDEFINED		LITERAL1
 UNKNOWN				LITERAL1

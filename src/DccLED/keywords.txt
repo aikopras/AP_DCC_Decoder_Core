@@ -7,7 +7,7 @@
 #########################################
 BasicLed		KEYWORD1
 FlashLed		KEYWORD1
-DCCLed			KEYWORD1
+DccLed			KEYWORD1
 FadeOutLed		KEYWORD1
 
 #########################################
@@ -57,5 +57,3 @@ neverStopFlashing	LITERAL1
 fadeTime		LITERAL1
 fadeSteps		LITERAL1
 pwmFrequency		LITERAL1
-
-

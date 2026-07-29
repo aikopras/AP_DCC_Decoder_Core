@@ -6,12 +6,13 @@
 //            2021-06-15 V1.1   ap attach/detach for pins (instead of constructor)
 //            2021-06-26 V1.2   ap extended with fade out
 //            2022-07-20 V1.3   ap divided into multiple objects, to save RAM if methods are not needed
+//            2026-07-28 V1.4   ap added "ledAttached" to protect against invalid pin numbers
 //
 // purpose:   Functions related to LEDs
 //
 // Object inheritance (between brackets the required RAM)
-// BasicLed (2) +--> FlashLed (11) ---> DCCLed (11)
-//              +--> FadeOutLed (23)
+// BasicLed (3) +--> FlashLed (12) ---> DCCLed (12)
+//              +--> FadeOutLed (24)
 //
 //******************************************************************************************************
 #include <Arduino.h>
@@ -22,22 +23,28 @@
 // BasicLed: Simple on/off LEDs
 //******************************************************************************************************
 void BasicLed::attach(uint8_t pin, bool invert){
+  ledAttached = false;
+  if (pin >= NUM_DIGITAL_PINS) return;
   _pin = pin;
   pinMode(_pin, OUTPUT);
   if (invert) _LED_ON = LOW;                // In some cases the LED goes ON if the pin goes LOW
   else _LED_ON = HIGH;
+  ledAttached = true;
 }
 
 bool BasicLed::ledIsOn(void){
+  if (!ledAttached) return false;
   if (digitalRead(_pin) == _LED_ON) return true;
     else return false;
 }
 
 void BasicLed::turn_on(void){
+  if (!ledAttached) return;
   digitalWrite(_pin, _LED_ON);
 }
 
 void BasicLed::turn_off(void){
+  if (!ledAttached) return;
   digitalWrite(_pin, !_LED_ON);
 }
 
@@ -99,6 +106,7 @@ void FlashLed::flashFast(void) {
 
 
 void FlashLed::update(void) {
+  if (!ledAttached) return;                      // No LED attached
   if (mode == alwaysOn) return;                  // No update needed
   if (mode == alwaysOff) return;                 // No update needed
   unsigned long current_time = millis();         // Storing millis() in a local variable gives shorter code
@@ -178,6 +186,7 @@ void FadeOutLed::fadeOut(void) {
 
 
 void FadeOutLed::update(void) {
+  if (!ledAttached) return;                      // No LED attached
   // Is it time to lower the LED's brightness?
   unsigned long Fade_Interval = micros() - last_fade_time;
   if (Fade_Interval > (fadeStepTime)) {

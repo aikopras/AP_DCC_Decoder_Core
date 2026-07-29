@@ -9,11 +9,13 @@
 //            2021/12/30 AP Version 1.2
 //            2024/05/09 AP Version 1.3: TMC board added
 //            2025/10/10 AP Version 1.4: Servo 2.2 added
+//            2026/07/26 AP Version 1.5: Correction, PIN_UNDEFINED added
+//                                       and #else clause changed to PIN_UNDEFINED
 //
-// The code is designed to run on traditional Arduino boards, such as the Nano, Uno and Mega,
-// as well as MiniCore, MightyCore, MegaCore, MegaCoreX and DxCore boards. It has been tested with
-// traditonal ATMega processors, such as the 16A, 328 and 2560, as well as more modern ATMegaX
-// processors, such as the 4808, 4809 and AVR128DA48.
+// The code was originally designed to run on traditional Arduino boards, such as the Nano, Uno
+// and Mega, as well as MiniCore, MightyCore, MegaCore, MegaCoreX and DxCore boards.
+// It has been tested with traditonal ATMega processors, such as the 16A, 328 and 2560,
+// as well as more modern ATMegaX processors, such as the 4808, 4809 and AVR128DA48.
 //
 // Defines the Arduino pins and the USART number for the following decoder hardware
 // - dccPin           - Any Arduino pin that supports hardware interrupts
@@ -30,6 +32,8 @@
 //******************************************************************************************************
 #pragma once
 #include <Arduino.h>
+
+#define PIN_UNDEFINED 255
 
 #if defined(MIGHTYCORE) && defined(__AVR_ATmega16__)
 // This is the ATMega 16 board, as used by the following Mightycore boards:
@@ -149,7 +153,7 @@ const uint8_t ledPin = 4;             // Pin 4 is on the DCC Board; PIN 13 is th
 const uint8_t buttonPin = 6;          // Digital Pin 6 on the Arduino UNO
 const uint8_t ackPin = 7;             // Digital Pin 7 on the Arduino UNO
 
-#elif defined(AVR_XMEGA) || !defined(MEGACOREX)
+#elif defined(AVR_XMEGA) && !defined(MEGACOREX)
 // This is likely the Nano Every, using the "standard" Arduino megaAVR board
 // The onboard USB connector is Serial
 // Make sure to choose Register Emulation = None
@@ -165,15 +169,14 @@ const uint8_t buttonPin = 12;         // PIN_PE1 (12)
 const uint8_t ledPin = 13;            // PIN_PE2 (13)
 
 #else
-  #error Code will not run on this board
-  //
-  // THE PIN NUMBERS BELOW ARE EQUIVALENT TO THE UNO, AND HAVE BEEN INCLUDED TO AVOID COMPILER ERRORS
-const uint8_t rsBusUsart = 0;         //
-const bool swapUsartPin = false;      //
-const uint8_t rsBusRX = 2;            //
-const uint8_t dccPin = 3;             //
-const uint8_t ledPin = 4;             //
-const uint8_t buttonPin = 6;          //
-const uint8_t ackPin = 7;             //
+  // For this processor we do not have pre-defined pin-numbers
+  // The user sketch should assign these numbers
+const uint8_t rsBusUsart = PIN_UNDEFINED;
+const bool swapUsartPin = false;
+const uint8_t rsBusRX = PIN_UNDEFINED;
+const uint8_t dccPin = PIN_UNDEFINED;
+const uint8_t ledPin = PIN_UNDEFINED;
+const uint8_t buttonPin = PIN_UNDEFINED;
+const uint8_t ackPin = PIN_UNDEFINED;
 
 #endif

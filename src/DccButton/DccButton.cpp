@@ -6,6 +6,7 @@
 //                              https://github.com/JChristensen/JC_Button
 //                              Small modifications are made by Aiko Pras to make the class
 //                              interface resemble the other AP_DCC and RSBus libraries
+//            2026-07-28 V1.2   tests added to protect against invalid pin numbers
 //
 // purpose:   Reads the status of (debounced) buttons
 //
@@ -39,9 +40,30 @@
 
 
 //*******************************************************************************************
+// Constructor.
+//*******************************************************************************************
+DccButton::DccButton(void) {
+  m_attached   = false;
+  m_state      = false;
+  m_lastState  = false;
+  m_changed    = false;
+  m_time       = 0;
+  m_lastChange = 0;
+}
+
+//*******************************************************************************************
 // attach and initialize a DccButton object and the pin it's connected to.
 //*******************************************************************************************
 void DccButton::attach(uint8_t pin, unsigned long dbTime, bool puEnable, bool invert) {
+  // Initialise variables, to avoid inconsistent state in case of an invalid pin
+  m_attached  = false;
+  m_state     = false;
+  m_lastState = false;
+  m_changed   = false;
+  m_time      = millis();
+  m_lastChange = m_time;
+  // Check if the pin exists
+  if (pin >= NUM_DIGITAL_PINS) return;
   m_pin = pin;
   m_dbTime = dbTime;
   m_puEnable = puEnable;
@@ -63,6 +85,7 @@ void DccButton::attach(uint8_t pin, unsigned long dbTime, bool puEnable, bool in
   m_lastState = m_state;
   m_changed = false;
   m_lastChange = m_time;
+  m_attached = true;
 }
 
 //*******************************************************************************************
@@ -70,6 +93,7 @@ void DccButton::attach(uint8_t pin, unsigned long dbTime, bool puEnable, bool in
 // does debouncing, captures and maintains times, previous state, etc.
 //*******************************************************************************************
 bool DccButton::read() {
+  if (!m_attached) return false;          // No valid pin
   unsigned long ms = millis();
   bool pinVal = (*m_portRegister & m_bit);
   // bool pinVal = (PIND & (1<<PD3);      // Direct port access: fast but hardcoded

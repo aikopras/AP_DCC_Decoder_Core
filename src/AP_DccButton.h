@@ -19,7 +19,7 @@
 #include <Arduino.h>
 
 class DccButton {
-  
+
 public:
   // attach(pin, dbTime, puEnable, invert) initialises a button object.
   //
@@ -30,45 +30,50 @@ public:
   // dbTime   Debounce time in milliseconds (default 25ms)
   // puEnable true to enable the AVR internal pullup resistor (default true)
   // invert   true to interpret a low logic level as pressed (default true)
-  
+
+  // Constructor. Puts the object in a safe state, so that a button object on which
+  // attach() was never called (or failed) behaves as "never pressed".
+  DccButton(void);
+
   // Initialize a Button object and the pin it's connected to
   void attach(uint8_t pin, unsigned long dbTime=25, bool puEnable=true, bool invert=true);
-  
+
   // Returns the current debounced button state, true for pressed,
   // false for released. Call this function frequently to ensure
   // the sketch is responsive to user input.
   bool read();
-  
+
   // Returns true if the button state was pressed at the last call to read().
   // Does not cause the button to be read.
   bool isPressed();
-  
+
   // Returns true if the button state was released at the last call to read().
   // Does not cause the button to be read.
   bool isReleased();
-  
+
   // Returns true if the button state at the last call to read() was pressed,
   // and this was a change since the previous read.
   bool wasPressed();
-  
+
   // Returns true if the button state at the last call to read() was released,
   // and this was a change since the previous read.
   bool wasReleased();
-  
+
   // Returns true if the button state at the last call to read() was pressed,
   // and has been in that state for at least the given number of milliseconds.
   bool pressedFor(unsigned long ms);
-  
+
   // Returns true if the button state at the last call to read() was released,
   // and has been in that state for at least the given number of milliseconds.
   bool releasedFor(unsigned long ms);
-  
+
   // Returns the time in milliseconds (from millis) that the button last
   // changed state.
   unsigned long lastChange();
-  
+
 private:
   uint8_t m_pin;                    // arduino pin number connected to button
+  bool m_attached;                  // Flag if attaching was successfull
   unsigned long m_dbTime;           // debounce time (ms)
   bool m_puEnable;                  // internal pullup resistor enabled
   bool m_invert;                    // if true, interpret logic low as pressed,
@@ -78,7 +83,7 @@ private:
   bool m_changed;                   // state changed since last read
   unsigned long m_time;             // time of current state (ms from millis)
   unsigned long m_lastChange;       // time of last state change (ms)
-  
+
   // The following was added in december 2021. Instead of using the standard and
   // slow Arduino digitalRead() function, we use a pointer to the inpu port the
   // button is connected to, plus a bitmask.
@@ -94,17 +99,19 @@ private:
 // initial state can be given, default is off (false).
 //*******************************************************************************************
 class ToggleButton : public DccButton {
-  
+
 public:
-  
+
+  ToggleButton(void) { m_toggleState = false; m_changed = false; }
+
   // attach is similar to Button, but includes the initial state for the toggle.
   void attach(uint8_t pin, unsigned long dbTime=25, bool puEnable=true,
               bool invert=true, bool initialState=false) {
     DccButton::attach(pin, dbTime, puEnable, invert);
     m_toggleState = initialState;
   }
-  
-  
+
+
   // read the button and return its state.
   // should be called frequently.
   bool read() {
@@ -118,13 +125,13 @@ public:
     }
     return m_toggleState;
   }
-  
+
   // has the state changed?
   bool changed() {return m_changed;}
-  
+
   // return the current state
   bool toggleState() {return m_toggleState;}
-  
+
 private:
   bool m_toggleState;
   bool m_changed;

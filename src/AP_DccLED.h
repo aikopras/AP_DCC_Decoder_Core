@@ -6,6 +6,7 @@
 //            2021-06-26 V1.2   ap extended with fade out
 //            2022-07-20 V1.3   ap split into multiple objects, to save RAM if methods are not needed
 //            2022-08-02 V1.4   ap const static uint8_t replaced by #defines
+//            2026-07-28 V1.5   ap added "ledAttached" to protect against invalid pin numbers
 //
 // purpose:   LED object. LED can be switched on, switched off, put in flashing mode or fade out.
 //            Next to these basic modes, additional functions are defined for some common tasks,
@@ -18,10 +19,10 @@
 // - FadeOutLed:  extends BasicLed with fadeOut (not recommeded: is expensive regarding RAM and CPU)
 //
 // RAM required per object:
-// - BasicLed:     2
-// - FlashLed:    11
-// - DccLed:      11
-// - FadeOutLed:  23
+// - BasicLed:     3
+// - FlashLed:    12
+// - DccLed:      12
+// - FadeOutLed:  24
 //
 //******************************************************************************************************
 #pragma once
@@ -41,6 +42,7 @@ public:
 protected:
   uint8_t _pin;                                    // Hardware pin to which the LED is connected
   bool _LED_ON;                                    // Default for _LED_ON is HIGH, but may be inverted
+  bool ledAttached;                                // Flag to protect against invalid pin numbers
 };
 
 
@@ -144,12 +146,12 @@ class DccLed: public FlashLed {
 //******************************************************************************************************
 class FadeOutLed: public BasicLed {
 public:
-  
+
   // Attributes to set the LED's fading behaviour
   uint8_t fadeTime;             // In 100ms steps
   uint8_t fadeSteps;            // Number of steps between LED is 100% and 0%
   uint8_t pwmFrequency;         // PWM frequency in Herz (preferably 50 or higher)
-  
+
   // The Basic::attach will be extended with some initialisation functions
   // Note that only fadeOut is implemented; fadeIn has not (yet??) been implemented
   void attach (uint8_t pin, bool invert=false);
@@ -167,4 +169,3 @@ private:
     bool fadeLedIsOn;               // for performance reasons we don't use BasicLed::ledIsOn()
     uint8_t brightnessLevel;        // Current LED level
 };
-
