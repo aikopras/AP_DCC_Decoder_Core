@@ -106,7 +106,7 @@ void ProgButton::addressProgramming() {
         if (!cvValues.isGBM()) {
           // According to RCN213, for the first handheld address (switch = 1) CV1 should become 1.
           // - the valid range for CV1 is 1..63 (if CV9 == 0) or 0..63 (if CV9 !=0)
-          // - the valid range for CV9 is 0..3  (or 128, if the decoder has not been initialised)
+          // - the valid range for CV9 is 0..7  (or 128, if the decoder has not been initialised)
           if (outputAddr) {
             // Store the output address:
             // The range of the received output address is 1..1024 (LZV100) / 1..2048 (NMRA)

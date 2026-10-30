@@ -62,7 +62,7 @@ void CvValues::init(uint8_t decoderType, uint8_t softwareVersion) {
   // - myRSAddr will often be equivalent to the decoder address, and will for feedback decoders be the main address
   //   myRSAddr == 0 means undefined. 128 is reserved for RS-bus feedback to PoM messages
   defaults[myAddrL] = 0x01;             // Decoder address, low order bits (1..64) 
-  defaults[myAddrH] = 0x80;             // Decoder address, high order bits (0..3)
+  defaults[myAddrH] = 0x80;             // Decoder address, high order bits (0..7)
   defaults[myRSAddr] = 0;               // RS-bus address (1..128 / undefined = 0)
   //
   // Accessory Decoder configuration
@@ -341,7 +341,7 @@ unsigned int CvValues::storedAddress(void) {
     // RCN-213 and RCN-225 describe the relationship between CV1, CV9 and the address.
     // According to RCN213, for the first handheld address (switch = 1) CV1 should become 1.
     // - the valid range for CV1 is 1..63 (if CV9 == 0) or 0..63 (if CV9 !=0)
-    // - the valid range for CV9 is 0..3  (or 128, if the decoder has not been initialised)
+    // - the valid range for CV9 is 0..7  (or 128, if the decoder has not been initialised)
     // If the decoder address has not yet been initialised, the highest order bit 
     // of `address` will be set.
     if (outputAddr) {

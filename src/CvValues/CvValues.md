@@ -33,7 +33,7 @@ T_on_F3      = 5;    // 0..255 - Time on F3 (in 20ms steps). 0 = continuous acti
 T_on_F4      = 6;    // 0..255 - Time on F4 (in 20ms steps). 0 = continuous activation
 version      = 7;    // 8..255 - Version should be 8 or higher
 VID          = 8;    // 0x0D   - Vendor ID (0x0D = DIY Decoder) / If set to 0x0D, the decoder resets to default settings
-myAddrH      = 9;    // 0..3   - Decoder Address high (3 bits)
+myAddrH      = 9;    // 0..7   - Decoder Address high (3 bits)
 myRSAddr     = 10;   // 1..128 - RS-bus address (Main address of the Feedback decoder). 0 = undefined
 DelayIn1     = 11;   // 0..255 - Delay in 10ms steps before sending OFF signal (conform LENZ LR101)
 DelayIn2     = 12;   // same
@@ -65,20 +65,20 @@ Min_Samples  = 33;   // 0..8   - Number of ON samples before the state is consid
 Delay_off    = 34;   // 0..255 - Delay (in 100 ms steps) before previous occupancy will be released
 Threshold_on = 35;   //10..255 - Above this value a previous OFF sample will be regarded as ON
 Threshold_of = 36;   // 5..255 - Below this value a previous ON sample will be regarded as OFF
-Speed1_Out   = 37;   // 0..8   - Track number (1..8) for the first speed measurement track (0=none)
+Speed1_Out   = 37;   // 0..7   - Track number (2..7) for the first speed measurement track (0=none)
 Speed1_LL    = 38;   // 0..255 - Length in mm of the first speed measurement track (LSB)
 Speed1_LH    = 39;   // 0..20  - Length in mm of the first speed measurement track (MSB)
-Speed2_Out   = 40;   // 0..8   - Track number (1..8) for the second speed measurement track (0=none)
+Speed2_Out   = 40;   // 0..7   - Track number (2..7) for the first speed measurement track (0=none)
 Speed2_LL    = 41;   // 0..255 - Length in mm of the second speed measurement track (LSB)
 Speed2_LH    = 42;   // 0..20  - Length in mm of the second speed measurement track (MSB)
-FB_A         = 43;   // 0..8   - Feedback bit if track A is occupied
-FB_B         = 44;   // 0..8   - Feedback bit if track B is occupied
-FB_C         = 45;   // 0..8   - Feedback bit if track C is occupied
-FB_D         = 46;   // 0..8   - Feedback bit if track D is occupied
-FB_S1        = 47;   // 0..8   - Feedback bit if Sensor 1 is active
-FB_S2        = 48;   // 0..8   - Feedback bit if Sensor 2 is active
-FB_S3        = 49;   // 0..8   - Feedback bit if Sensor 3 is active
-FB_S4        = 50;   // 0..8   - Feedback bit if Sensor 4 is active
+FB_A         = 43;   // 0..7   - Feedback bit if track A is occupied
+FB_B         = 44;   // 0..7   - Feedback bit if track B is occupied
+FB_C         = 45;   // 0..7   - Feedback bit if track C is occupied
+FB_D         = 46;   // 0..7   - Feedback bit if track D is occupied
+FB_S1        = 47;   // 0..7   - Feedback bit if Sensor 1 is active
+FB_S2        = 48;   // 0..7   - Feedback bit if Sensor 2 is active
+FB_S3        = 49;   // 0..7   - Feedback bit if Sensor 3 is active
+FB_S4        = 50;   // 0..7   - Feedback bit if Sensor 4 is active
 Polarization = 51;   // 0..1   - If 0: J&K connected normal / if 1: J&K polarization changed
 ````
 

@@ -30,7 +30,7 @@
 // The CV default values are written to EEPROM by the setDefaults() method.
 // setDefaults() simply copies to EEPROM the contents of the `defaults` array, which holds
 // all default values for all CVs. These values may vary for different types of decoders.
-// The `defaults` array will initially be filled by the class constructor, but after instatiation
+// The `defaults` array will initially be filled by the class constructor, but after instantiation
 // the main sketch may override values whenever needed.
 //
 // Depending on the further decoder software, there are three ways to call setDefaults():
@@ -111,7 +111,7 @@ const uint8_t T_on_F3      = 5;    // 0..255 - Time on F3 (in 20ms steps). 0 = c
 const uint8_t T_on_F4      = 6;    // 0..255 - Time on F4 (in 20ms steps). 0 = continuous activation
 const uint8_t version      = 7;    // 8..255 - Version should be 8 or higher
 const uint8_t VID          = 8;    // 0x0D   - Vendor ID (0x0D = DIY Decoder) / If set to 0x0D, the decoder resets to default settings
-const uint8_t myAddrH      = 9;    // 0..3   - Decoder Address high (3 bits)
+const uint8_t myAddrH      = 9;    // 0..7   - Decoder Address high (3 bits)
 const uint8_t myRSAddr     = 10;   // 1..128 - RS-bus address (Main address of the Feedback decoder). 0 = undefined
 const uint8_t DelayIn1     = 11;   // 0..255 - Delay in 10ms steps before sending OFF signal (conform LENZ LR101)
 const uint8_t DelayIn2     = 12;   // same
@@ -147,20 +147,20 @@ const uint8_t Min_Samples  = 33;   // 0..8   - Number of ON samples before the s
 const uint8_t Delay_off    = 34;   // 0..255 - Delay (in 100 ms steps) before previous occupancy will be released
 const uint8_t Threshold_on = 35;   //10..255 - Above this value a previous OFF sample will be regarded as ON
 const uint8_t Threshold_of = 36;   // 5..255 - Below this value a previous ON sample will be regarded as OFF
-const uint8_t Speed1_Out   = 37;   // 0..8   - Track number (1..8) for the first speed measurement track (0=none)
+const uint8_t Speed1_Out   = 37;   // 0..7   - Track number (2..7) for the first speed measurement track (0=none)
 const uint8_t Speed1_LL    = 38;   // 0..255 - Length in mm of the first speed measurement track (LSB)
 const uint8_t Speed1_LH    = 39;   // 0..20  - Length in mm of the first speed measurement track (MSB)
-const uint8_t Speed2_Out   = 40;   // 0..8   - Track number (1..8) for the second speed measurement track (0=none)
+const uint8_t Speed2_Out   = 40;   // 0..7   - Track number (2..7) for the first speed measurement track (0=none)
 const uint8_t Speed2_LL    = 41;   // 0..255 - Length in mm of the second speed measurement track (LSB)
 const uint8_t Speed2_LH    = 42;   // 0..20  - Length in mm of the second speed measurement track (MSB)
-const uint8_t FB_A         = 43;   // 0..8   - Feedback bit if track A is occupied
-const uint8_t FB_B         = 44;   // 0..8   - Feedback bit if track B is occupied
-const uint8_t FB_C         = 45;   // 0..8   - Feedback bit if track C is occupied
-const uint8_t FB_D         = 46;   // 0..8   - Feedback bit if track D is occupied
-const uint8_t FB_S1        = 47;   // 0..8   - Feedback bit if Sensor 1 is active
-const uint8_t FB_S2        = 48;   // 0..8   - Feedback bit if Sensor 2 is active
-const uint8_t FB_S3        = 49;   // 0..8   - Feedback bit if Sensor 3 is active
-const uint8_t FB_S4        = 50;   // 0..8   - Feedback bit if Sensor 4 is active
+const uint8_t FB_A         = 43;   // 0..7   - Feedback bit if track A is occupied
+const uint8_t FB_B         = 44;   // 0..7   - Feedback bit if track B is occupied
+const uint8_t FB_C         = 45;   // 0..7   - Feedback bit if track C is occupied
+const uint8_t FB_D         = 46;   // 0..7   - Feedback bit if track D is occupied
+const uint8_t FB_S1        = 47;   // 0..7   - Feedback bit if Sensor 1 is active
+const uint8_t FB_S2        = 48;   // 0..7   - Feedback bit if Sensor 2 is active
+const uint8_t FB_S3        = 49;   // 0..7   - Feedback bit if Sensor 3 is active
+const uint8_t FB_S4        = 50;   // 0..7   - Feedback bit if Sensor 4 is active
 const uint8_t Polarization = 51;   // 0..1   - If 0: J&K connected normal / if 1: J&K polarization changed
 
 // CV Names - Specific for a TMC 24 Channel IO Decoder
@@ -175,7 +175,7 @@ const uint8_t Ract         = 33;   // 0..1   - If relays switches with - (=0) or
 const uint8_t RRR1         = 34;   // Relays used for round-robin, relays 1-8  (Port C)
 const uint8_t RRR2         = 35;   // Relays used for round-robin, relays 9-16 (Port A)
 const uint8_t RInter       = 36;   // Relays decoder, round-robin interval (in seconds)
-const uint8_t Mode         = 37;   // 1..3   - Relais decoder mode
+const uint8_t Mode         = 37;   // 1..3   - Relays decoder mode
 
 // CV Names - Specific for a Safety Decoder
 const uint8_t SendButtonFB = 33;   // 0..1   - Decoder sends feedback via the RS-Bus if the emergency button is pushed
@@ -195,7 +195,7 @@ const uint8_t LCD_Display  = 35;  // 0..1   - Disable / Enable the LCD display
 const uint8_t Serial_Line  = 36;  // 0,1,2  - Disable / Enable the Serial interface. Enable for GRBL config changes
 
 // CV Names - Specific for a Servo Decoder
-// These decoders implement the Generic CVs, as well as may servo specific CVs. These servo specific CVs
+// These decoders implement the Generic CVs, as well as many servo specific CVs. These servo specific CVs
 // start numbering from CV64, and are declared and defined as part of the servo decoder software itself.
 
 //*****************************************************************************************************
