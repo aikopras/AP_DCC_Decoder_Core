@@ -5,6 +5,7 @@
 // History:   2021/06/14 AP Version 1.0
 //            2021/12/30 AP Version 1.2
 //            2022/08/02 AP Version 1.3
+//            2026/11/08 AP Version 1.4
 //
 // Purpose:   C++ file that implements the methods to act on DCC CV-messages and pushes on the
 //            programming button. It can send RS-Bus messages and make changes to the LED.
@@ -68,7 +69,7 @@ void Processor::reboot(void) {
 // The ProgButton class is basically a small wrapper around the DccButton class (see AP_DccButton)
 void ProgButton::attach(uint8_t pin) {
   onBoardButton.attach(pin);
-  delay(500);
+  delay(50);     // 2026/11/8: lowered from 500 to 50ms
   onBoardButton.read();
 }
 

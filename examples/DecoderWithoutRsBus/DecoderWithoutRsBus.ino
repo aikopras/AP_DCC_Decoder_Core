@@ -10,6 +10,12 @@
 //            Configuration Variables, DCC-Ack signal, Programming button and LED.
 //
 // This basic example prints the contents of new DCC Accessory and PoM commands.
+//
+// Note: this code 
+
+// Warning: The delays in setup (300 ms in total) are included to make Serial.print more reliable.
+// However, they postpone decoderHardware.init(). According to RCN-216, CV-SM (service mode) commands
+// may follow 190 ms after power-on, so CV-SM programming may fail.
 //           
 //******************************************************************************************************
 #include <Arduino.h>                  // For general definitions
