@@ -12,6 +12,7 @@
 //            2025/12/01 AP Version 1.8 Servo-6 and TMC16ChannelSwitchDecoder decoders added
 //            2025/12/07 AP Version 1.9 SwitchCount and SwitchType added for switches / servos
 //            2026/07/29 AP Version 2.0 Comment added that 0b1110xxxx is reserved for user defined types
+//            2026/11/13 AP Version 2.1 Relays8Decoder added
 //
 // Purpose:   Header file that defines the methods to read and modify CV values stored in EEPROM,
 //            as well as the default values for all
@@ -89,6 +90,7 @@ const uint8_t Servo3Decoder                     = 0b00010101;   // Decoder for 3
 const uint8_t Servo6Decoder                     = 0b00010110;   // Decoder for 6 Servo's
 const uint8_t LiftDecoder                       = 0b00011000;   // Lift Decoder
 const uint8_t Relays4Decoder                    = 0b00100000;   // Relays decoder for 4 relays
+const uint8_t Relays8Decoder                    = 0b00100010;   // Relays decoder for 8 relays
 const uint8_t Relays16Decoder                   = 0b00100001;   // Relays decoder for 16 relays
 const uint8_t TrackOccupancyDecoder             = 0b00110000;   // Track Occupancy decoder
 const uint8_t TrackOccupancyDecoderWithReverser = 0b00110001;   // Track Occupancy decoder with reverser
