@@ -9,7 +9,7 @@
 //            2025/03/21 AP Version 1.6 Servo decoder added. EEPROM read / write changed into uint16_t
 //            2025/12/01 AP Version 1.8 Servo-3 and Servo-6 decoders added
 //            2025/12/07 AP Version 1.9 SwitchCount and SwitchType added for switches / servos
-//            2026/11/13 AP Version 2.1 Relays8Decoder added
+//            2026/11/13 AP Version 2.1 RelaysXDecoder added
 //
 // Purpose:   C++ file that implements the methods to read and modify CV values stored in EEPROM,  
 //            as well as the default values for all CVs.
@@ -139,11 +139,6 @@ void CvValues::init(uint8_t decoderType, uint8_t softwareVersion) {
       defaults[AlwaysAct] = 0;          // 0..1 
     break;
     //
-    case Relays8Decoder:
-      // The Relays8Decoder uses the same software as the switch decoder, except for some CV values
-      defaults[SendFB] = 0;             // No need to send feedback information for relays
-    break;
-    //
     case Relays16Decoder:
       // The following defaults values apply to the Relays16Decoder 
       defaults[Ract] = 1;               // If relais switches with - (=0) or with + (=1)
@@ -156,6 +151,15 @@ void CvValues::init(uint8_t decoderType, uint8_t softwareVersion) {
       // 2: multiple relays may be activated at the same time
       // 3: Relays are activated in a round-robin fashion
       defaults[Mode] = 0;               // 1..3
+    break;
+    //
+    case RelaysXDecoder:
+      // The following defaults values apply to the RelaysXDecoder
+      defaults[T_on_F1] = 0;            // 0: monostable relays does not automatically switch off
+      defaults[T_on_F2] = 0;            // 0
+      defaults[T_on_F3] = 0;            // 0
+      defaults[T_on_F4] = 0;            // 0
+      defaults[SendFB] = 0;             // No need to send feedback information for relays
     break;
     //
     case SafetyDecoder:

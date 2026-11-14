@@ -64,7 +64,7 @@ The following objects and classes become available to the user sketch:
 
 - **Timers**: the [DccTimer](src/DccTimer/DccTimer.md#DccTimer) class allows the user sketch to include (non-blocking) timers based on Arduino's `millis()`.
 
-- **Relays**: the [Relays](src/DccRelay/DccRelay.md#DccRelay) class allows the user sketch to include bi-stable relays. Mono-stable relays are not implemented.
+- **Relays**: the [Relays](src/DccRelay/DccRelay.md#DccRelay) class allows the user sketch to include bi-stable relays. Mono-stable relays are not implemented as separate class, but can easily be implemented within the sketch (see [RelaysXDecoder](examples/RelaysXDecoder/RelaysXDecoder.md)).
 
 ___
 ## Example ##
@@ -86,4 +86,15 @@ void loop() {
   decoderHardware.update();
 }
 ````
-A more elaborate example, which includes feedback via the RS-Bus, is shown [BasicDecoder.md](examples/BasicDecoder/BasicDecoder.md).
+More elaborate examples can be found in the [examples](examples) folder:
+
+- [BasicDecoder](examples/BasicDecoder/BasicDecoder.md): a decoder for a board listed in boards.h, including feedback via the RS-Bus.
+- [DecoderWithoutRsBus](examples/DecoderWithoutRsBus/DecoderWithoutRsBus.md): a decoder for a board that is not listed in boards.h, without RS-Bus, with its own decoder type and its own CVs.
+- [RelaysXDecoder](examples/RelaysXDecoder/RelaysXDecoder.md): a complete decoder for a configurable number of mono-stable relays, using multiple decoder and RS-Bus addresses, and a read-only CV for configuration software.
+
+The support classes have their own, smaller examples:
+
+- [LED](examples/LED): on / off, toggle, flashing, fading, and a LED that signals DCC reception.
+- [Button](examples/Button): simple on / off, toggle and long press.
+- [Timer](examples/Timer): a blinking LED, using a non-blocking timer.
+- [Relay](examples/Relay): a bi-stable relay.
