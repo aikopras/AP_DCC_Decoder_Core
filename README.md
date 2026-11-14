@@ -64,7 +64,7 @@ The following objects and classes become available to the user sketch:
 
 - **Timers**: the [DccTimer](src/DccTimer/DccTimer.md#DccTimer) class allows the user sketch to include (non-blocking) timers based on Arduino's `millis()`.
 
-- **Relays**: the [Relays](src/DccRelay/DccRelay.md#DccRelay) class allows the user sketch to include bi-stable relays. Mono-stable relays are not implemented as separate class, but can easily be implemented within the sketch (see [RelaysXDecoder](examples/RelaysXDecoder/RelaysXDecoder.md)).
+- **Relays**: the [Relays](src/DccRelay/DccRelay.md#DccRelay) class allows the user sketch to include bi-stable relays. Mono-stable relays are not implemented as a separate class, but can easily be implemented within the sketch (see [RelaysXDecoder](examples/RelaysXDecoder/RelaysXDecoder.md)).
 
 ___
 ## Example ##
