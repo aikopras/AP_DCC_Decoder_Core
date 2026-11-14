@@ -6,6 +6,7 @@
 //            2021/12/30 AP Version 1.2
 //            2022/08/02 AP Version 1.3
 //            2026/11/08 AP Version 1.4
+//            2026/11/14 AP Version 1.5 Output addressing (CV29 bit 6) passed to the AP_DCC_library
 //
 // Purpose:   C++ file that implements the methods to act on DCC CV-messages and pushes on the
 //            programming button. It can send RS-Bus messages and make changes to the LED.
@@ -320,7 +321,12 @@ void CommonDecHwFunctions::init(void) {
   if (cvValues.addressNotSet()) onBoardLed.flashSlow();
   else onBoardLed.start_up();
   // Set the Accessory address and the type of Command Station
-  accCmd.setMyAddress(cvValues.storedAddress());
+  // accCmd.setMyAddress(cvValues.storedAddress());     // removed: 2026/11/14
+  // For accessory decoders (CV29 bit 7), CV29 bit 6 tells if we use output or decoder addressing.
+  // storedAddress() uses the same CV29 bits, so both always match.
+  uint8_t cv29 = cvValues.read(Config);
+  accCmd.outputAddressing = (bitRead(cv29, 7) && bitRead(cv29, 6));
+  accCmd.setMyAddress(cvValues.storedAddress());  
   accCmd.myMaster = cvValues.read(CmdStation);
   // initializes the 20ms timer that reduces the CPU load of update()
   TLast = millis();
