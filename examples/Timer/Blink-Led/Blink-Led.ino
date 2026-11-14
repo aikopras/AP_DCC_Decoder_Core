@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include <AP_DCC_Timer.h>
+#include <AP_DccTimer.h>
 
 DccTimer myTimer;
 // Arduino UNO / Mega: LED_BUILTIN
